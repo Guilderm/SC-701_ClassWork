@@ -2,13 +2,13 @@
 
 namespace Entities
 {
-    public partial class NorthWindContext : DbContext
+    public partial class DBContext : DbContext
     {
-        public NorthWindContext()
+        public DBContext()
         {
         }
 
-        public NorthWindContext(DbContextOptions<NorthWindContext> options)
+        public DBContext(DbContextOptions<DBContext> options)
             : base(options)
         {
         }

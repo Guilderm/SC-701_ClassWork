@@ -6,26 +6,24 @@ namespace DAL.Implementations
 {
     public class CategoryDALImpl : ICategoryDAL
     {
-        private readonly NorthWindContext _context;
+        private readonly DBContext _context;
 
 
         public CategoryDALImpl()
         {
-            _context = new NorthWindContext();
+            _context = new DBContext();
+                    }
 
-        }
-
-        public CategoryDALImpl(NorthWindContext _Context)
+        public CategoryDALImpl(DBContext _Context)
         {
             _context = _Context;
-
-        }
+                    }
 
         public bool Add(Category entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Category> unidad = new(_context))
+                using (UnitofWork<Category> unidad = new(_context))
                 {
                     _ = unidad.genericDAL.Add(entity);
                     _ = unidad.Complete();
@@ -54,7 +52,7 @@ namespace DAL.Implementations
         public Category Get(int id)
         {
             Category category;
-            using (UnidadDeTrabajo<Category> unidad = new(_context))
+            using (UnitofWork<Category> unidad = new(_context))
             {
 
                 category = unidad.genericDAL.Get(id);
@@ -68,7 +66,7 @@ namespace DAL.Implementations
             try
             {
                 IEnumerable<Category> categories;
-                using (UnidadDeTrabajo<Category> unidad = new(_context))
+                using (UnitofWork<Category> unidad = new(_context))
                 {
                     categories = unidad.genericDAL.GetAll();
                 }
@@ -76,7 +74,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -86,18 +83,15 @@ namespace DAL.Implementations
             bool result = false;
             try
             {
-                using UnidadDeTrabajo<Category> unidad = new(_context);
+                using UnitofWork<Category> unidad = new(_context);
                 _ = unidad.genericDAL.Remove(entity);
                 result = unidad.Complete();
-
             }
             catch (Exception)
             {
-
                 result = false;
             }
-
-            return result;
+                        return result;
         }
 
         public void RemoveRange(IEnumerable<Category> entities)
@@ -116,18 +110,15 @@ namespace DAL.Implementations
 
             try
             {
-                using UnidadDeTrabajo<Category> unidad = new(_context);
+                using UnitofWork<Category> unidad = new(_context);
                 _ = unidad.genericDAL.Update(entity);
                 result = unidad.Complete();
-
             }
             catch (Exception)
             {
-
                 return false;
             }
-
-            return result;
+                        return result;
         }
     }
 }
