@@ -7,7 +7,6 @@ namespace DAL.Implementations
 {
     public class DALGenericoImpl<TEntity> : IDALGenerico<TEntity> where TEntity : class
     {
-
         protected readonly DBContext _Context;
 
         public DALGenericoImpl(DBContext context)
@@ -15,18 +14,15 @@ namespace DAL.Implementations
             _Context = context;
         }
 
-
         public bool Add(TEntity entity)
         {
             try
             {
-
                 _ = _Context.Set<TEntity>().Add(entity);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -39,7 +35,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -52,7 +47,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -65,7 +59,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -78,7 +71,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -93,7 +85,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -106,7 +97,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -119,7 +109,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -133,7 +122,6 @@ namespace DAL.Implementations
             }
             catch (Exception)
             {
-
                 return false;
             }
         }

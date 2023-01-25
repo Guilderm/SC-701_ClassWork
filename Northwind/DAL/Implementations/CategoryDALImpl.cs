@@ -8,7 +8,6 @@ namespace DAL.Implementations
     {
         private readonly DBContext _context;
 
-
         public CategoryDALImpl()
         {
             _context = new DBContext();
@@ -23,18 +22,15 @@ namespace DAL.Implementations
         {
             try
             {
-                using (UnitofWork<Category> unidad = new(_context))
+                using (UnitOfWork<Category> UnitOfWork = new(_context))
                 {
-                    _ = unidad.genericDAL.Add(entity);
-                    _ = unidad.Complete();
+                    _ = UnitOfWork.genericDAL.Add(entity);
+                    _ = UnitOfWork.Complete();
                 }
-
-
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -52,10 +48,9 @@ namespace DAL.Implementations
         public Category Get(int id)
         {
             Category category;
-            using (UnitofWork<Category> unidad = new(_context))
+            using (UnitOfWork<Category> UnitOfWork = new(_context))
             {
-
-                category = unidad.genericDAL.Get(id);
+                category = UnitOfWork.genericDAL.Get(id);
             }
             return category;
 
@@ -66,9 +61,9 @@ namespace DAL.Implementations
             try
             {
                 IEnumerable<Category> categories;
-                using (UnitofWork<Category> unidad = new(_context))
+                using (UnitOfWork<Category> UnitOfWork = new(_context))
                 {
-                    categories = unidad.genericDAL.GetAll();
+                    categories = UnitOfWork.genericDAL.GetAll();
                 }
                 return categories;
             }
@@ -83,9 +78,9 @@ namespace DAL.Implementations
             bool result = false;
             try
             {
-                using UnitofWork<Category> unidad = new(_context);
-                _ = unidad.genericDAL.Remove(entity);
-                result = unidad.Complete();
+                using UnitOfWork<Category> UnitOfWork = new(_context);
+                _ = UnitOfWork.genericDAL.Remove(entity);
+                result = UnitOfWork.Complete();
             }
             catch (Exception)
             {
@@ -110,7 +105,7 @@ namespace DAL.Implementations
 
             try
             {
-                using UnitofWork<Category> unidad = new(_context);
+                using UnitOfWork<Category> unidad = new(_context);
                 _ = unidad.genericDAL.Update(entity);
                 result = unidad.Complete();
             }
