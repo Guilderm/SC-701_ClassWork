@@ -17,22 +17,20 @@ namespace BackEnd.Controllers
         }
 
         #region HttpGet
-        // GET: api/<CategoryController>
         [HttpGet]
         public JsonResult Get()
         {
             IEnumerable<Category> categories = _categoryDAL.GetAll();
 
-
             return new JsonResult(categories);
         }
 
-        // GET api/<CategoryController>/5
         [HttpGet("{id}")]
         public JsonResult Get(int id)
         {
             Category category;
             category = _categoryDAL.Get(id);
+
             return new JsonResult(category);
         }
         #endregion
@@ -42,6 +40,7 @@ namespace BackEnd.Controllers
         public JsonResult Post([FromBody] Category category)
         {
             _ = _categoryDAL.Add(category);
+
             return new JsonResult(category);
         }
         #endregion
@@ -51,6 +50,7 @@ namespace BackEnd.Controllers
         public JsonResult Put([FromBody] Category category)
         {
             _ = _categoryDAL.Update(category);
+
             return new JsonResult(category);
         }
         #endregion
