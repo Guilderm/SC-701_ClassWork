@@ -3,15 +3,15 @@ using Entities;
 
 namespace DAL.Implementations
 {
-    public class UnidadDeTrabajo<T> : IDisposable where T : class
+    public class UnitOfWork<T> : IDisposable where T : class
     {
-        private readonly NorthWindContext _context;
+        private readonly DBContext _context;
         //public IDALGenerico<Queja> quejaDAL;
         //public IDALGenerico<TablaGeneral> tablaDAL;
         public IDALGenerico<T> genericDAL;
 
 
-        public UnidadDeTrabajo(NorthWindContext _context)
+        public UnitOfWork(DBContext _context)
         {
             this._context = _context;
             genericDAL = new DALGenericoImpl<T>(this._context);
@@ -30,7 +30,6 @@ namespace DAL.Implementations
                 _ = e.Message;
                 return false;
             }
-
         }
 
 

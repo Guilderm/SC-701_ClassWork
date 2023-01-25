@@ -7,26 +7,22 @@ namespace DAL.Implementations
 {
     public class DALGenericoImpl<TEntity> : IDALGenerico<TEntity> where TEntity : class
     {
+        protected readonly DBContext _Context;
 
-        protected readonly NorthWindContext Context;
-
-        public DALGenericoImpl(NorthWindContext context)
+        public DALGenericoImpl(DBContext context)
         {
-            Context = context;
+            _Context = context;
         }
-
 
         public bool Add(TEntity entity)
         {
             try
             {
-
-                _ = Context.Set<TEntity>().Add(entity);
+                _ = _Context.Set<TEntity>().Add(entity);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -35,11 +31,10 @@ namespace DAL.Implementations
         {
             try
             {
-                Context.Set<TEntity>().AddRange(entities);
+                _Context.Set<TEntity>().AddRange(entities);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -48,11 +43,10 @@ namespace DAL.Implementations
         {
             try
             {
-                return Context.Set<TEntity>().Where(predicate);
+                return _Context.Set<TEntity>().Where(predicate);
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -61,11 +55,10 @@ namespace DAL.Implementations
         {
             try
             {
-                return Context.Set<TEntity>().Find(id);
+                return _Context.Set<TEntity>().Find(id);
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -74,11 +67,10 @@ namespace DAL.Implementations
         {
             try
             {
-                return Context.Set<TEntity>().ToList();
+                return _Context.Set<TEntity>().ToList();
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -87,13 +79,12 @@ namespace DAL.Implementations
         {
             try
             {
-                _ = Context.Set<TEntity>().Attach(entity);
-                _ = Context.Set<TEntity>().Remove(entity);
+                _ = _Context.Set<TEntity>().Attach(entity);
+                _ = _Context.Set<TEntity>().Remove(entity);
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -102,11 +93,10 @@ namespace DAL.Implementations
         {
             try
             {
-                Context.Set<TEntity>().RemoveRange(entities);
+                _Context.Set<TEntity>().RemoveRange(entities);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -115,11 +105,10 @@ namespace DAL.Implementations
         {
             try
             {
-                return Context.Set<TEntity>().SingleOrDefault(predicate);
+                return _Context.Set<TEntity>().SingleOrDefault(predicate);
             }
             catch (Exception)
             {
-
                 return null;
             }
         }
@@ -128,12 +117,11 @@ namespace DAL.Implementations
         {
             try
             {
-                Context.Entry(entity).State = EntityState.Modified;
+                _Context.Entry(entity).State = EntityState.Modified;
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }

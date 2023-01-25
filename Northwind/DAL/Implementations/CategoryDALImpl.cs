@@ -6,37 +6,31 @@ namespace DAL.Implementations
 {
     public class CategoryDALImpl : ICategoryDAL
     {
-        private readonly NorthWindContext _context;
-
+        private readonly DBContext _context;
 
         public CategoryDALImpl()
         {
-            _context = new NorthWindContext();
-
+            _context = new DBContext();
         }
 
-        public CategoryDALImpl(NorthWindContext _Context)
+        public CategoryDALImpl(DBContext _Context)
         {
             _context = _Context;
-
         }
 
         public bool Add(Category entity)
         {
             try
             {
-                using (UnidadDeTrabajo<Category> unidad = new(_context))
+                using (UnitOfWork<Category> UnitOfWork = new(_context))
                 {
-                    _ = unidad.genericDAL.Add(entity);
-                    _ = unidad.Complete();
+                    _ = UnitOfWork.genericDAL.Add(entity);
+                    _ = UnitOfWork.Complete();
                 }
-
-
                 return true;
             }
             catch (Exception)
             {
-
                 return false;
             }
         }
@@ -54,10 +48,9 @@ namespace DAL.Implementations
         public Category Get(int id)
         {
             Category category;
-            using (UnidadDeTrabajo<Category> unidad = new(_context))
+            using (UnitOfWork<Category> UnitOfWork = new(_context))
             {
-
-                category = unidad.genericDAL.Get(id);
+                category = UnitOfWork.genericDAL.Get(id);
             }
             return category;
 
@@ -68,15 +61,14 @@ namespace DAL.Implementations
             try
             {
                 IEnumerable<Category> categories;
-                using (UnidadDeTrabajo<Category> unidad = new(_context))
+                using (UnitOfWork<Category> UnitOfWork = new(_context))
                 {
-                    categories = unidad.genericDAL.GetAll();
+                    categories = UnitOfWork.genericDAL.GetAll();
                 }
                 return categories;
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -86,17 +78,14 @@ namespace DAL.Implementations
             bool result = false;
             try
             {
-                using UnidadDeTrabajo<Category> unidad = new(_context);
-                _ = unidad.genericDAL.Remove(entity);
-                result = unidad.Complete();
-
+                using UnitOfWork<Category> UnitOfWork = new(_context);
+                _ = UnitOfWork.genericDAL.Remove(entity);
+                result = UnitOfWork.Complete();
             }
             catch (Exception)
             {
-
                 result = false;
             }
-
             return result;
         }
 
@@ -116,17 +105,14 @@ namespace DAL.Implementations
 
             try
             {
-                using UnidadDeTrabajo<Category> unidad = new(_context);
+                using UnitOfWork<Category> unidad = new(_context);
                 _ = unidad.genericDAL.Update(entity);
                 result = unidad.Complete();
-
             }
             catch (Exception)
             {
-
                 return false;
             }
-
             return result;
         }
     }
