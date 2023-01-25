@@ -3,27 +3,20 @@ using DAL.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        private readonly ICategoryDAL _categoryDAL;
 
-        private ICategoryDAL _categoryDAL;
-        
-        
-        #region Constructor
         public CategoryController()
         {
-            _categoryDAL = new CategoryDALImpl(new Entities.DBContext());
-
+            _categoryDAL = new CategoryDALImpl(new DBContext());
         }
-        #endregion
 
-        #region Get's
+        #region HttpGet
         // GET: api/<CategoryController>
         [HttpGet]
         public JsonResult Get()
@@ -40,51 +33,37 @@ namespace BackEnd.Controllers
         {
             Category category;
             category = _categoryDAL.Get(id);
-
-
             return new JsonResult(category);
-
         }
         #endregion
 
-        #region Agregar
-        // POST api/<CategoryController>
+        #region HttpPost
         [HttpPost]
         public JsonResult Post([FromBody] Category category)
         {
-            _categoryDAL.Add(category);
+            _ = _categoryDAL.Add(category);
             return new JsonResult(category);
-
         }
-
         #endregion
 
-                #region MOdificar
-        // PUT api/<CategoryController>/5
+        #region HttpPut
         [HttpPut]
         public JsonResult Put([FromBody] Category category)
         {
-
-            _categoryDAL.Update(category);
-            return new JsonResult(category);    
-
+            _ = _categoryDAL.Update(category);
+            return new JsonResult(category);
         }
         #endregion
 
-        #region Eliminar
-        // DELETE api/<CategoryController>/5
+        #region HttpDelete
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)
         {
-            Category category = new Category { CategoryId= id };
-            _categoryDAL.Remove(category);
+            Category category = new() { CategoryId = id };
+            _ = _categoryDAL.Remove(category);
 
-            return new  JsonResult(category);
-
-
+            return new JsonResult(category);
         }
-
-
         #endregion
     }
 }

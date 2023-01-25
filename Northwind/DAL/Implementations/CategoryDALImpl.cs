@@ -12,12 +12,12 @@ namespace DAL.Implementations
         public CategoryDALImpl()
         {
             _context = new DBContext();
-                    }
+        }
 
         public CategoryDALImpl(DBContext _Context)
         {
             _context = _Context;
-                    }
+        }
 
         public bool Add(Category entity)
         {
@@ -91,7 +91,7 @@ namespace DAL.Implementations
             {
                 result = false;
             }
-                        return result;
+            return result;
         }
 
         public void RemoveRange(IEnumerable<Category> entities)
@@ -118,7 +118,7 @@ namespace DAL.Implementations
             {
                 return false;
             }
-                        return result;
+            return result;
         }
     }
 }
