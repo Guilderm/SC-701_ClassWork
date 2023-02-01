@@ -1,8 +1,7 @@
-﻿namespace Entities
+﻿namespace Entities;
+
+public partial class OrderSubtotal
 {
-    public partial class OrderSubtotal
-    {
-        public int OrderId { get; set; }
-        public decimal? Subtotal { get; set; }
-    }
+    public int OrderId { get; set; }
+    public decimal? Subtotal { get; set; }
 }
