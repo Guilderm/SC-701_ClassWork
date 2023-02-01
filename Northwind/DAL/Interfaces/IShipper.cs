@@ -2,6 +2,6 @@
 
 namespace DAL.Interfaces;
 
-public interface IShipper : IGenericRepositories<Category>
+public interface IShipper : IGenericRepository<Category>
 {
 }

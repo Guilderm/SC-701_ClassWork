@@ -14,7 +14,7 @@ public class UnitOfWork<T> : IDisposable where T : class
     public UnitOfWork(DBContext _context)
     {
         this._context = _context;
-        genericDAL = new GenericRepositories<T>(this._context);
+        genericDAL = new GenericRepository<T>(this._context);
 
     }
 

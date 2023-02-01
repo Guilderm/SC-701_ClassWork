@@ -2,6 +2,6 @@
 
 namespace DAL.Interfaces;
 
-public interface ICategoryRepository : IGenericRepositories<Category>
+public interface ICategoryRepository : IGenericRepository<Category>
 {
 }
