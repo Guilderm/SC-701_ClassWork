@@ -4,24 +4,25 @@ using Entities;
 
 using Microsoft.EntityFrameworkCore;
 
+using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
 namespace DAL.Repositories;
 
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
-    protected readonly DBContext _Context;
+    protected readonly DBContext _DBContext;
 
     public GenericRepository(DBContext context)
     {
-        _Context = context;
+        _DBContext = context;
     }
 
     public bool Add(TEntity entity)
     {
         try
         {
-            _ = _Context.Set<TEntity>().Add(entity);
+            _ = _DBContext.Set<TEntity>().Add(entity);
             return true;
         }
         catch (Exception)
@@ -34,7 +35,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         try
         {
-            _Context.Set<TEntity>().AddRange(entities);
+            _DBContext.Set<TEntity>().AddRange(entities);
         }
         catch (Exception)
         {
@@ -42,39 +43,44 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         }
     }
 
-    public IEnumerable<TEntity>? Find(Expression<Func<TEntity, bool>> predicate)
+    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
-            return _Context.Set<TEntity>().Where(predicate);
+            return _DBContext.Set<TEntity>().Where(predicate);
         }
         catch (Exception)
         {
-            return null;
+            return Enumerable.Empty<TEntity>();
         }
     }
 
-    public TEntity? Get(int id)
+    public TEntity Get(int id)
     {
         try
         {
-            return _Context.Set<TEntity>().Find(id);
+            TEntity? entity = _DBContext.Set<TEntity>().Find(id);
+            if (entity == null)
+            {
+                throw new ObjectNotFoundException($"Entity with id {id} not found.");
+            }
+            return entity;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return null;
+            throw new Exception($"Error retrieving entity with id {id}: {ex.Message}");
         }
     }
 
-    public IEnumerable<TEntity>? GetAll()
+    public IEnumerable<TEntity> GetAll()
     {
         try
         {
-            return _Context.Set<TEntity>().ToList();
+            return _DBContext.Set<TEntity>().ToList();
         }
         catch (Exception)
         {
-            return null;
+            return Enumerable.Empty<TEntity>();
         }
     }
 
@@ -82,8 +88,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         try
         {
-            _ = _Context.Set<TEntity>().Attach(entity);
-            _ = _Context.Set<TEntity>().Remove(entity);
+            _ = _DBContext.Set<TEntity>().Attach(entity);
+            _ = _DBContext.Set<TEntity>().Remove(entity);
             return true;
         }
         catch (Exception)
@@ -96,7 +102,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         try
         {
-            _Context.Set<TEntity>().RemoveRange(entities);
+            _DBContext.Set<TEntity>().RemoveRange(entities);
         }
         catch (Exception)
         {
@@ -104,15 +110,20 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         }
     }
 
-    public TEntity? SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+    public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
-            return _Context.Set<TEntity>().SingleOrDefault(predicate);
+            TEntity? entity = _DBContext.Set<TEntity>().SingleOrDefault(predicate);
+            if (entity == null)
+            {
+                throw new ObjectNotFoundException($"Entity with id {predicate} not found.");
+            }
+            return entity;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return null;
+            throw new Exception($"Error retrieving entity with id {predicate}: {ex.Message}");
         }
     }
 
@@ -120,7 +131,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         try
         {
-            _Context.Entry(entity).State = EntityState.Modified;
+            _DBContext.Entry(entity).State = EntityState.Modified;
             return true;
         }
         catch (Exception)
