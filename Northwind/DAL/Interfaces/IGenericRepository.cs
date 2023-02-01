@@ -2,7 +2,7 @@
 
 namespace DAL.Interfaces;
 
-public interface IGenericRepositories<TEntity> where TEntity : class
+public interface IGenericRepository<TEntity> where TEntity : class
 {
     TEntity Get(int id);
     IEnumerable<TEntity> GetAll();

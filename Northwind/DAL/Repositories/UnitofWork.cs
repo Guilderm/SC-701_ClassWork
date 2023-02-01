@@ -9,7 +9,7 @@ public class UnitOfWork<T> : IDisposable where T : class
     private readonly DBContext _context;
     //public IGenericRepositories<Queja> quejaDAL;
     //public IGenericRepositories<TablaGeneral> tablaDAL;
-    public IGenericRepositories<T> genericDAL;
+    public IGenericRepository<T> genericDAL;
 
     public UnitOfWork(DBContext _context)
     {

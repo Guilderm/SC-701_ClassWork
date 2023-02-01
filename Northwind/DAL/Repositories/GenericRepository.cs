@@ -8,11 +8,11 @@ using System.Linq.Expressions;
 
 namespace DAL.Repositories;
 
-public class GenericRepositories<TEntity> : IGenericRepositories<TEntity> where TEntity : class
+public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
     protected readonly DBContext _Context;
 
-    public GenericRepositories(DBContext context)
+    public GenericRepository(DBContext context)
     {
         _Context = context;
     }
