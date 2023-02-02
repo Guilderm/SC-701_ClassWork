@@ -6,15 +6,15 @@ namespace DAL.Repositories;
 
 public class UnitOfWork<T> : IDisposable where T : class
 {
-    private readonly DBContext _context;
+    private readonly DBContext _DBcontext;
     //public IGenericRepositories<Queja> quejaDAL;
     //public IGenericRepositories<TablaGeneral> tablaDAL;
     public IGenericRepository<T> genericDAL;
 
     public UnitOfWork(DBContext _context)
     {
-        this._context = _context;
-        genericDAL = new GenericRepository<T>(this._context);
+        _DBcontext = _context;
+        genericDAL = new GenericRepository<T>(_DBcontext);
 
     }
 
@@ -22,7 +22,7 @@ public class UnitOfWork<T> : IDisposable where T : class
     {
         try
         {
-            _ = _context.SaveChanges();
+            _ = _DBcontext.SaveChanges();
             return true;
         }
         catch (Exception e)
@@ -32,5 +32,5 @@ public class UnitOfWork<T> : IDisposable where T : class
         }
     }
 
-    public void Dispose() => _context.Dispose();
+    public void Dispose() => _DBcontext.Dispose();
 }

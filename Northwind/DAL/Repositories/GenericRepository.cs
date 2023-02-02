@@ -13,9 +13,9 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 {
     protected readonly DBContext _DBContext;
 
-    public GenericRepository(DBContext context)
+    public GenericRepository(DBContext DBContex)
     {
-        _DBContext = context;
+        _DBContext = DBContex;
     }
 
     public bool Add(TEntity entity)
