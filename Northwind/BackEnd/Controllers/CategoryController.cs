@@ -12,6 +12,7 @@ namespace BackEnd.Controllers;
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CategoryController()
     {
@@ -22,7 +23,8 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public JsonResult Get()
     {
-        IEnumerable<Category> categories = _categoryRepository.GetAll();
+        // IEnumerable<Category> categories = _categoryRepository.GetAll();
+        IEnumerable<Category> categories = _unitOfWork.category.GetAll();
 
         return new JsonResult(categories);
     }

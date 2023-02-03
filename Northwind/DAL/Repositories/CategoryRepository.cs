@@ -21,7 +21,7 @@ public class CategoryRepository : ICategoryRepository
         {
             using (UnitOfWork<Category> UnitOfWork = new(_DBcontext))
             {
-                _ = UnitOfWork.genericDAL.Add(entity);
+                _ = UnitOfWork.genericRepository.Add(entity);
                 _ = UnitOfWork.Complete();
             }
             return true;
@@ -41,7 +41,7 @@ public class CategoryRepository : ICategoryRepository
         Category category;
         using (UnitOfWork<Category> UnitOfWork = new(_DBcontext))
         {
-            category = UnitOfWork.genericDAL.Get(id);
+            category = UnitOfWork.genericRepository.Get(id);
         }
         return category;
     }
@@ -53,7 +53,7 @@ public class CategoryRepository : ICategoryRepository
             IEnumerable<Category> categories;
             using (UnitOfWork<Category> UnitOfWork = new(_DBcontext))
             {
-                categories = UnitOfWork.genericDAL.GetAll();
+                categories = UnitOfWork.genericRepository.GetAll();
             }
             return categories;
         }
@@ -69,7 +69,7 @@ public class CategoryRepository : ICategoryRepository
         try
         {
             using UnitOfWork<Category> UnitOfWork = new(_DBcontext);
-            _ = UnitOfWork.genericDAL.Remove(entity);
+            _ = UnitOfWork.genericRepository.Remove(entity);
             result = UnitOfWork.Complete();
         }
         catch (Exception)
@@ -90,7 +90,7 @@ public class CategoryRepository : ICategoryRepository
         try
         {
             using UnitOfWork<Category> unidad = new(_DBcontext);
-            _ = unidad.genericDAL.Update(entity);
+            _ = unidad.genericRepository.Update(entity);
             result = unidad.Complete();
         }
         catch (Exception)

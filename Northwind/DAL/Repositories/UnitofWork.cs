@@ -4,17 +4,18 @@ using Entities;
 
 namespace DAL.Repositories;
 
-public class UnitOfWork<T> : IDisposable where T : class
+public class UnitOfWork<T> : IUnitOfWork where T : class
 {
     private readonly DBContext _DBcontext;
-    //public IGenericRepositories<Queja> quejaDAL;
-    //public IGenericRepositories<TablaGeneral> tablaDAL;
-    public IGenericRepository<T> genericDAL;
+
+    public IGenericRepository<T> genericRepository;
+    public ICategoryRep category { get; private set; }
 
     public UnitOfWork(DBContext _context)
     {
         _DBcontext = _context;
-        genericDAL = new GenericRepository<T>(_DBcontext);
+        genericRepository = new GenericRepository<T>(_DBcontext);
+        category = new CategoryRep(_context);
     }
 
     public bool Complete()

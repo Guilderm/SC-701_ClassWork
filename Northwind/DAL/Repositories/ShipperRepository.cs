@@ -21,7 +21,7 @@ public class ShipperRepository : IShipperRepository
         {
             using (UnitOfWork<Shipper> UnitOfWork = new(_DBcontext))
             {
-                _ = UnitOfWork.genericDAL.Add(entity);
+                _ = UnitOfWork.genericRepository.Add(entity);
                 _ = UnitOfWork.Complete();
             }
             return true;
@@ -41,7 +41,7 @@ public class ShipperRepository : IShipperRepository
         Shipper Shipper;
         using (UnitOfWork<Shipper> UnitOfWork = new(_DBcontext))
         {
-            Shipper = UnitOfWork.genericDAL.Get(id);
+            Shipper = UnitOfWork.genericRepository.Get(id);
         }
         return Shipper;
     }
@@ -53,7 +53,7 @@ public class ShipperRepository : IShipperRepository
             IEnumerable<Shipper> categories;
             using (UnitOfWork<Shipper> UnitOfWork = new(_DBcontext))
             {
-                categories = UnitOfWork.genericDAL.GetAll();
+                categories = UnitOfWork.genericRepository.GetAll();
             }
             return categories;
         }
@@ -69,7 +69,7 @@ public class ShipperRepository : IShipperRepository
         try
         {
             using UnitOfWork<Shipper> UnitOfWork = new(_DBcontext);
-            _ = UnitOfWork.genericDAL.Remove(entity);
+            _ = UnitOfWork.genericRepository.Remove(entity);
             result = UnitOfWork.Complete();
         }
         catch (Exception)
@@ -90,7 +90,7 @@ public class ShipperRepository : IShipperRepository
         try
         {
             using UnitOfWork<Shipper> unidad = new(_DBcontext);
-            _ = unidad.genericDAL.Update(entity);
+            _ = unidad.genericRepository.Update(entity);
             result = unidad.Complete();
         }
         catch (Exception)
