@@ -60,11 +60,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         try
         {
             TEntity? entity = _DBContext.Set<TEntity>().Find(id);
-            if (entity == null)
-            {
-                throw new ObjectNotFoundException($"Entity with id {id} not found.");
-            }
-            return entity;
+            return entity == null ? throw new ObjectNotFoundException($"Entity with id {id} not found.") : entity;
         }
         catch (Exception ex)
         {
@@ -115,11 +111,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         try
         {
             TEntity? entity = _DBContext.Set<TEntity>().SingleOrDefault(predicate);
-            if (entity == null)
-            {
-                throw new ObjectNotFoundException($"Entity with id {predicate} not found.");
-            }
-            return entity;
+            return entity == null ? throw new ObjectNotFoundException($"Entity with id {predicate} not found.") : entity;
         }
         catch (Exception ex)
         {
