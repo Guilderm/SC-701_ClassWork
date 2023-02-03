@@ -44,7 +44,6 @@ public class CategoryRepository : ICategoryRepository
             category = UnitOfWork.genericDAL.Get(id);
         }
         return category;
-
     }
 
     public IEnumerable<Category> GetAll()

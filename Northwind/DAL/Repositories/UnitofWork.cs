@@ -15,7 +15,6 @@ public class UnitOfWork<T> : IDisposable where T : class
     {
         _DBcontext = _context;
         genericDAL = new GenericRepository<T>(_DBcontext);
-
     }
 
     public bool Complete()

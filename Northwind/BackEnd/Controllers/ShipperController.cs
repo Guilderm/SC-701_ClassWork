@@ -11,18 +11,18 @@ namespace BackEnd.Controllers;
 [ApiController]
 public class ShipperController : ControllerBase
 {
-    private readonly IShipperRepository _ShipperDAL;
+    private readonly IShipperRepository _ShipperRepository;
 
     public ShipperController()
     {
-        _ShipperDAL = new ShipperRepository(new DBContext());
+        _ShipperRepository = new ShipperRepository(new DBContext());
     }
 
     #region HttpGet
     [HttpGet]
     public JsonResult Get()
     {
-        IEnumerable<Shipper> categories = _ShipperDAL.GetAll();
+        IEnumerable<Shipper> categories = _ShipperRepository.GetAll();
 
         return new JsonResult(categories);
     }
@@ -31,7 +31,7 @@ public class ShipperController : ControllerBase
     public JsonResult Get(int id)
     {
         Shipper Shipper;
-        Shipper = _ShipperDAL.Get(id);
+        Shipper = _ShipperRepository.Get(id);
 
         return new JsonResult(Shipper);
     }
@@ -41,7 +41,7 @@ public class ShipperController : ControllerBase
     [HttpPost]
     public JsonResult Post([FromBody] Shipper Shipper)
     {
-        _ = _ShipperDAL.Add(Shipper);
+        _ = _ShipperRepository.Add(Shipper);
 
         return new JsonResult(Shipper);
     }
@@ -51,7 +51,7 @@ public class ShipperController : ControllerBase
     [HttpPut]
     public JsonResult Put([FromBody] Shipper Shipper)
     {
-        _ = _ShipperDAL.Update(Shipper);
+        _ = _ShipperRepository.Update(Shipper);
 
         return new JsonResult(Shipper);
     }
@@ -62,7 +62,7 @@ public class ShipperController : ControllerBase
     public JsonResult Delete(int id)
     {
         Shipper Shipper = new() { ShipperId = id };
-        _ = _ShipperDAL.Remove(Shipper);
+        _ = _ShipperRepository.Remove(Shipper);
 
         return new JsonResult(Shipper);
     }
