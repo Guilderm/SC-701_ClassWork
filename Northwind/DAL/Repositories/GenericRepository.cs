@@ -111,7 +111,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         try
         {
             TEntity? entity = _DBContext.Set<TEntity>().SingleOrDefault(predicate);
-            return entity == null ? throw new ObjectNotFoundException($"Entity with id {predicate} not found.") : entity;
+            return entity ?? throw new ObjectNotFoundException($"Entity with id {predicate} not found.");
         }
         catch (Exception ex)
         {
