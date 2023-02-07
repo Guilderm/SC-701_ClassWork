@@ -23,9 +23,7 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public JsonResult Get()
     {
-        // IEnumerable<Category> categories = _categoryRepository.GetAll();
-        IEnumerable<Category> categories = _unitOfWork.category.GetAll();
-
+        IEnumerable<Category> categories = _categoryRepository.GetAll();
         return new JsonResult(categories);
     }
 
