@@ -1,15 +1,14 @@
-﻿namespace Entities
-{
-    public partial class CustomerDemographic
-    {
-        public CustomerDemographic()
-        {
-            Customers = new HashSet<Customer>();
-        }
+﻿namespace Entities;
 
-        public string CustomerTypeId { get; set; } = null!;
-        public string? CustomerDesc { get; set; }
+public partial class CustomerDemographic
+	{
+	public CustomerDemographic()
+		{
+		Customers=new HashSet<Customer>();
+		}
 
-        public virtual ICollection<Customer> Customers { get; set; }
-    }
-}
+	public string CustomerTypeId { get; set; } = null!;
+	public string? CustomerDesc { get; set; }
+
+	public virtual ICollection<Customer> Customers { get; set; }
+	}

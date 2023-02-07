@@ -1,15 +1,14 @@
-﻿namespace Entities
-{
-    public partial class Region
-    {
-        public Region()
-        {
-            Territories = new HashSet<Territory>();
-        }
+﻿namespace Entities;
 
-        public int RegionId { get; set; }
-        public string RegionDescription { get; set; } = null!;
+public partial class Region
+	{
+	public Region()
+		{
+		Territories=new HashSet<Territory>();
+		}
 
-        public virtual ICollection<Territory> Territories { get; set; }
-    }
-}
+	public int RegionId { get; set; }
+	public string RegionDescription { get; set; } = null!;
+
+	public virtual ICollection<Territory> Territories { get; set; }
+	}
