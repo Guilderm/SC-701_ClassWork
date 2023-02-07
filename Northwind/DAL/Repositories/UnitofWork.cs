@@ -4,19 +4,20 @@ using Entities;
 
 namespace DAL.Repositories;
 
-public class UnitOfWork<T> : IUnitOfWork where T : class
+public class UnitOfWork<TEntity> : IUnitOfWork where TEntity : class
 {
     private readonly DBContext _DBcontext;
 
-    public IGenericRepository<T> genericRepository;
-    public ICategoryRep category { get; private set; }
+    public IGenericRepository<TEntity> genericRepository;
+    public IRepository<Category> _category;
 
     public UnitOfWork(DBContext _context)
     {
         _DBcontext = _context;
-        genericRepository = new GenericRepository<T>(_DBcontext);
-        category = new CategoryRep(_context);
+        genericRepository = new GenericRepository<TEntity>(_DBcontext);
     }
+
+    public IRepository<Category> category => _category ??= new Repository<Category>(_DBcontext);
 
     public bool Complete()
     {

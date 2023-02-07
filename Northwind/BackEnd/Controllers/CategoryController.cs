@@ -17,13 +17,16 @@ public class CategoryController : ControllerBase
     public CategoryController()
     {
         _categoryRepository = new CategoryRepository(new DBContext());
+        _unitOfWork = new UnitOfWork<Category>(new DBContext());
     }
 
     #region HttpGet
     [HttpGet]
     public JsonResult Get()
     {
-        IEnumerable<Category> categories = _categoryRepository.GetAll();
+        //IEnumerable<Category> categories = _categoryRepository.GetAll();
+
+        IEnumerable<Category> categories = _unitOfWork.category.GetAll();
         return new JsonResult(categories);
     }
 
