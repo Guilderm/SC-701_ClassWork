@@ -1,8 +1,6 @@
 ﻿using DAL.Interfaces;
 using DAL.Repositories;
-
 using Entities;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;

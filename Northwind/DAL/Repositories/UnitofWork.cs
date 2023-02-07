@@ -1,5 +1,4 @@
 ﻿using DAL.Interfaces;
-
 using Entities;
 
 namespace DAL.Repositories;

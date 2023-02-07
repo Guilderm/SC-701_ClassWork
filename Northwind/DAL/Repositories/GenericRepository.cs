@@ -1,9 +1,6 @@
 ﻿using DAL.Interfaces;
-
 using Entities;
-
 using Microsoft.EntityFrameworkCore;
-
 using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
