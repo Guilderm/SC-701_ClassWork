@@ -11,12 +11,10 @@ namespace BackEnd.Controllers;
 [ApiController]
 public class CategoryController : ControllerBase
 {
-    private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public CategoryController()
     {
-        _categoryRepository = new CategoryRepository(new DBContext());
         _unitOfWork = new UnitOfWork<Category>(new DBContext());
     }
 
@@ -24,8 +22,6 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public JsonResult Get()
     {
-        //IEnumerable<Category> categories = _categoryRepository.GetAll();
-
         IEnumerable<Category> categories = _unitOfWork.category.GetAll();
         return new JsonResult(categories);
     }
@@ -34,7 +30,7 @@ public class CategoryController : ControllerBase
     public JsonResult Get(int id)
     {
         Category category;
-        category = _categoryRepository.Get(id);
+        category = _unitOfWork.category.Get(id);
 
         return new JsonResult(category);
     }
@@ -44,7 +40,7 @@ public class CategoryController : ControllerBase
     [HttpPost]
     public JsonResult Post([FromBody] Category category)
     {
-        _ = _categoryRepository.Add(category);
+        _ = _unitOfWork.category.Add(category);
 
         return new JsonResult(category);
     }
@@ -54,7 +50,7 @@ public class CategoryController : ControllerBase
     [HttpPut]
     public JsonResult Put([FromBody] Category category)
     {
-        _ = _categoryRepository.Update(category);
+        _ = _unitOfWork.category.Update(category);
 
         return new JsonResult(category);
     }
@@ -65,7 +61,7 @@ public class CategoryController : ControllerBase
     public JsonResult Delete(int id)
     {
         Category category = new() { CategoryId = id };
-        _ = _categoryRepository.Remove(category);
+        _ = _unitOfWork.category.Remove(category);
 
         return new JsonResult(category);
     }
