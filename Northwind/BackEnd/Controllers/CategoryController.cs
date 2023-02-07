@@ -22,7 +22,7 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public JsonResult Get()
     {
-        IEnumerable<Category> categories = _unitOfWork.category.GetAll();
+        IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
         return new JsonResult(categories);
     }
 
@@ -30,7 +30,7 @@ public class CategoryController : ControllerBase
     public JsonResult Get(int id)
     {
         Category category;
-        category = _unitOfWork.category.Get(id);
+        category = _unitOfWork.Category.Get(id);
 
         return new JsonResult(category);
     }
@@ -40,7 +40,7 @@ public class CategoryController : ControllerBase
     [HttpPost]
     public JsonResult Post([FromBody] Category category)
     {
-        _ = _unitOfWork.category.Add(category);
+        _ = _unitOfWork.Category.Add(category);
 
         return new JsonResult(category);
     }
@@ -50,7 +50,7 @@ public class CategoryController : ControllerBase
     [HttpPut]
     public JsonResult Put([FromBody] Category category)
     {
-        _ = _unitOfWork.category.Update(category);
+        _ = _unitOfWork.Category.Update(category);
 
         return new JsonResult(category);
     }
@@ -61,7 +61,7 @@ public class CategoryController : ControllerBase
     public JsonResult Delete(int id)
     {
         Category category = new() { CategoryId = id };
-        _ = _unitOfWork.category.Remove(category);
+        _ = _unitOfWork.Category.Remove(category);
 
         return new JsonResult(category);
     }
