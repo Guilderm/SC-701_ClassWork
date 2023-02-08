@@ -4,7 +4,7 @@ public partial class Territory
 	{
 	public Territory()
 		{
-		Employees=new HashSet<Employee>();
+		Employees = new HashSet<Employee>();
 		}
 
 	public string TerritoryId { get; set; } = null!;

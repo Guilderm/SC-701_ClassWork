@@ -13,7 +13,7 @@ public class CategoryController : ControllerBase
 
 	public CategoryController()
 		{
-		_unitOfWork=new UnitOfWork(new DBContext());
+		_unitOfWork = new UnitOfWork(new DBContext());
 		}
 
 	#region HttpGet
@@ -28,7 +28,7 @@ public class CategoryController : ControllerBase
 	public JsonResult Get(int id)
 		{
 		Category category;
-		category=_unitOfWork.Category.Get(id);
+		category = _unitOfWork.Category.Get(id);
 
 		return new JsonResult(category);
 		}
@@ -38,7 +38,7 @@ public class CategoryController : ControllerBase
 	[HttpPost]
 	public JsonResult Post([FromBody] Category category)
 		{
-		_=_unitOfWork.Category.Add(category);
+		_ = _unitOfWork.Category.Add(category);
 
 		return new JsonResult(category);
 		}
@@ -48,7 +48,7 @@ public class CategoryController : ControllerBase
 	[HttpPut]
 	public JsonResult Put([FromBody] Category category)
 		{
-		_=_unitOfWork.Category.Update(category);
+		_ = _unitOfWork.Category.Update(category);
 
 		return new JsonResult(category);
 		}
@@ -59,7 +59,7 @@ public class CategoryController : ControllerBase
 	public JsonResult Delete(int id)
 		{
 		Category category = new() { CategoryId=id };
-		_=_unitOfWork.Category.Remove(category);
+		_ = _unitOfWork.Category.Remove(category);
 
 		return new JsonResult(category);
 		}
