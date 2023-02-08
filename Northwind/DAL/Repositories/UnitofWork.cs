@@ -4,35 +4,38 @@ using Entities;
 namespace DAL.Repositories;
 
 public class UnitOfWork : IUnitOfWork
-   {
-   private readonly DBContext _DBcontext;
+	{
+	private readonly DBContext _DBcontext;
 
-   public IGenericRepository<Category> _category;
-   public IGenericRepository<Shipper> _shipper;
+	//This will generate a Repository for Catergory that wil only be based on the Generic repository.
+	public IGenericRepository<Category> _category;
 
-   public UnitOfWork(DBContext _context)
-      {
-      _DBcontext=_context;
-      _category=new GenericRepository<Category>(_DBcontext);
-      _shipper=new GenericRepository<Shipper>(_DBcontext);
-      }
+	//This will generate a Custom repository that inherits from the Generic Repository for shipper.
+	public IShipperRepository _shipper;
 
-   public IGenericRepository<Category> Category => _category??=new GenericRepository<Category>(_DBcontext);
-   public IGenericRepository<Shipper> Shipper => _shipper??=new GenericRepository<Shipper>(_DBcontext);
+	public UnitOfWork()
+		{
+		_DBcontext = new DBContext();
+		_category = new GenericRepository<Category>(_DBcontext);
+		_shipper = new ShipperRepository(_DBcontext);
+		}
 
-   public bool Complete()
-      {
-      try
-         {
-         _=_DBcontext.SaveChanges();
-         return true;
-         }
-      catch (Exception e)
-         {
-         _=e.Message;
-         return false;
-         }
-      }
+	public IGenericRepository<Category> Category => _category ??= new GenericRepository<Category>(_DBcontext);
+	public IShipperRepository Shipper => _shipper ??= new ShipperRepository(_DBcontext);
 
-   public void Dispose() => _DBcontext.Dispose();
-   }
+	public bool Complete()
+		{
+		try
+			{
+			_ = _DBcontext.SaveChanges();
+			return true;
+			}
+		catch (Exception e)
+			{
+			_ = e.Message;
+			return false;
+			}
+		}
+
+	public void Dispose() => _DBcontext.Dispose();
+	}

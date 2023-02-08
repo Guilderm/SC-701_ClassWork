@@ -4,7 +4,7 @@ public partial class Region
 	{
 	public Region()
 		{
-		Territories=new HashSet<Territory>();
+		Territories = new HashSet<Territory>();
 		}
 
 	public int RegionId { get; set; }

@@ -4,7 +4,7 @@ public partial class Category
 	{
 	public Category()
 		{
-		Products=new HashSet<Product>();
+		Products = new HashSet<Product>();
 		}
 
 	public int CategoryId { get; set; }

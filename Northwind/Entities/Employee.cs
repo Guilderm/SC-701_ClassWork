@@ -4,9 +4,9 @@ public partial class Employee
 	{
 	public Employee()
 		{
-		InverseReportsToNavigation=new HashSet<Employee>();
-		Orders=new HashSet<Order>();
-		Territories=new HashSet<Territory>();
+		InverseReportsToNavigation = new HashSet<Employee>();
+		Orders = new HashSet<Order>();
+		Territories = new HashSet<Territory>();
 		}
 
 	public int EmployeeId { get; set; }

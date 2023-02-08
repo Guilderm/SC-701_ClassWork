@@ -4,7 +4,7 @@ public partial class Product
 	{
 	public Product()
 		{
-		OrderDetails=new HashSet<OrderDetail>();
+		OrderDetails = new HashSet<OrderDetail>();
 		}
 
 	public int ProductId { get; set; }

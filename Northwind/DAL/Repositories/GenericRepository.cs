@@ -12,14 +12,14 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
 	public GenericRepository(DBContext DBContex)
 		{
-		_DBContext=DBContex;
+		_DBContext = DBContex;
 		}
 
 	public bool Add(TEntity entity)
 		{
 		try
 			{
-			_=_DBContext.Set<TEntity>().Add(entity);
+			_ = _DBContext.Set<TEntity>().Add(entity);
 			return true;
 			}
 		catch (Exception)
@@ -57,7 +57,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		try
 			{
 			TEntity? entity = _DBContext.Set<TEntity>().Find(id);
-			return entity??throw new ObjectNotFoundException($"Entity with id {id} not found.");
+			return entity ?? throw new ObjectNotFoundException($"Entity with id {id} not found.");
 			}
 		catch (Exception ex)
 			{
@@ -81,8 +81,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		{
 		try
 			{
-			_=_DBContext.Set<TEntity>().Attach(entity);
-			_=_DBContext.Set<TEntity>().Remove(entity);
+			_ = _DBContext.Set<TEntity>().Attach(entity);
+			_ = _DBContext.Set<TEntity>().Remove(entity);
 			return true;
 			}
 		catch (Exception)
@@ -108,7 +108,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		try
 			{
 			TEntity? entity = _DBContext.Set<TEntity>().SingleOrDefault(predicate);
-			return entity??throw new ObjectNotFoundException($"Entity with id {predicate} not found.");
+			return entity ?? throw new ObjectNotFoundException($"Entity with id {predicate} not found.");
 			}
 		catch (Exception ex)
 			{
@@ -120,7 +120,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		{
 		try
 			{
-			_DBContext.Entry(entity).State=EntityState.Modified;
+			_DBContext.Entry(entity).State = EntityState.Modified;
 			return true;
 			}
 		catch (Exception)

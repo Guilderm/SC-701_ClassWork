@@ -4,8 +4,8 @@ public partial class Customer
 	{
 	public Customer()
 		{
-		Orders=new HashSet<Order>();
-		CustomerTypes=new HashSet<CustomerDemographic>();
+		Orders = new HashSet<Order>();
+		CustomerTypes = new HashSet<CustomerDemographic>();
 		}
 
 	public string CustomerId { get; set; } = null!;
