@@ -40,8 +40,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region Consultar
-	// GET: api/<CategoryController>
+	#region GET: api/<CategoryController>
 	[HttpGet]
 	public JsonResult Get()
 		{
@@ -71,8 +70,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region Agregar
-	// POST api/<CategoryController>
+	#region POST api/<CategoryController>
 	[HttpPost]
 	public JsonResult Post([FromBody] CategoryModel category)
 		{
@@ -83,8 +81,7 @@ public class CategoryController : ControllerBase
 
 	#endregion
 
-	#region MOdificar
-	// PUT api/<CategoryController>/5
+	#region PUT api/<CategoryController>/5
 	[HttpPut]
 	public JsonResult Put([FromBody] CategoryModel category)
 		{
@@ -94,8 +91,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region Eliminar
-	// DELETE api/<CategoryController>/5
+	#region  DELETE api/<CategoryController>/5
 	[HttpDelete("{id}")]
 	public JsonResult Delete(int id)
 		{
