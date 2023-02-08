@@ -16,9 +16,9 @@ public class CategoryHelper
 		{
 		List<CategoryViewModel> lista;
 
-		HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/");
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
+		//HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/");
+		//string content = responseMessage.Content.ReadAsStringAsync().Result;
+		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(ServiceRepository.GetResponse("api/category/").Content.ReadAsStringAsync().Result);
 
 		return lista;
 		}
