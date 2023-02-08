@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using BackEnd.Models;
+using DAL.Interfaces;
 using DAL.Repositories;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ namespace BackEnd.Controllers;
 [ApiController]
 public class CategoryController : ControllerBase
 	{
+
 	private readonly IUnitOfWork _unitOfWork;
 
 	public CategoryController()
@@ -16,52 +18,91 @@ public class CategoryController : ControllerBase
 		_unitOfWork = new UnitOfWork();
 		}
 
-	#region HttpGet
+	#region Mappers
+	private static CategoryModel MapEntityToModel(Category entity)
+		{
+		return new CategoryModel
+			{
+			CategoryId = entity.CategoryId,
+			CategoryName = entity.CategoryName,
+			Description = entity.Description
+			};
+		}
+
+	private static Category MapModelToEntity(CategoryModel model)
+		{
+		return new Category
+			{
+			CategoryId = model.CategoryId,
+			CategoryName = model.CategoryName,
+			Description = model.Description
+			};
+		}
+	#endregion
+
+	#region Consultar
+	// GET: api/<CategoryController>
 	[HttpGet]
 	public JsonResult Get()
 		{
 		IEnumerable<Category> categories = _unitOfWork.Category.GetAll();
-		return new JsonResult(categories);
+
+		var categoryList = new List<CategoryModel>();
+
+		foreach (Category category in categories)
+			{
+			categoryList.Add(MapEntityToModel(category)
+
+				 );
+			}
+
+		return new JsonResult(categoryList);
 		}
 
+	// GET api/<CategoryController>/5
 	[HttpGet("{id}")]
 	public JsonResult Get(int id)
 		{
 		Category category;
 		category = _unitOfWork.Category.Get(id);
 
-		return new JsonResult(category);
+		return new JsonResult(MapEntityToModel(category));
+
 		}
 	#endregion
 
-	#region HttpPost
+	#region Agregar
+	// POST api/<CategoryController>
 	[HttpPost]
-	public JsonResult Post([FromBody] Category category)
+	public JsonResult Post([FromBody] CategoryModel category)
 		{
-		_ = _unitOfWork.Category.Add(category);
-
-		return new JsonResult(category);
+		Category entity = MapModelToEntity(category);
+		_ = _unitOfWork.Category.Add(entity);
+		return new JsonResult(MapEntityToModel(entity));
 		}
+
 	#endregion
 
-	#region HttpPut
+	#region MOdificar
+	// PUT api/<CategoryController>/5
 	[HttpPut]
-	public JsonResult Put([FromBody] Category category)
+	public JsonResult Put([FromBody] CategoryModel category)
 		{
-		_ = _unitOfWork.Category.Update(category);
 
-		return new JsonResult(category);
+		_ = _unitOfWork.Category.Update(MapModelToEntity(category));
+		return new JsonResult(MapModelToEntity(category));
 		}
 	#endregion
 
-	#region HttpDelete
+	#region Eliminar
+	// DELETE api/<CategoryController>/5
 	[HttpDelete("{id}")]
 	public JsonResult Delete(int id)
 		{
-		Category category = new() { CategoryId=id };
+		var category = new Category { CategoryId= id };
 		_ = _unitOfWork.Category.Remove(category);
 
-		return new JsonResult(category);
+		return new JsonResult(MapEntityToModel(category));
 		}
 	#endregion
 	}
