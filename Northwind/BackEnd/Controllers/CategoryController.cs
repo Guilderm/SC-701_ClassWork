@@ -13,7 +13,7 @@ public class CategoryController : ControllerBase
 
 	public CategoryController()
 		{
-		_unitOfWork = new UnitOfWork(new DBContext());
+		_unitOfWork = new UnitOfWork();
 		}
 
 	#region HttpGet

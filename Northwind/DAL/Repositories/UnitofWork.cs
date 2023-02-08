@@ -10,9 +10,9 @@ public class UnitOfWork : IUnitOfWork
    public IGenericRepository<Category> _category;
    public IShipperRepository _shipper;
 
-   public UnitOfWork(DBContext Context)
+   public UnitOfWork()
       {
-      _DBcontext = Context;
+      _DBcontext = new DBContext();
       _category = new GenericRepository<Category>(_DBcontext);
       _shipper = new ShipperRepository(_DBcontext);
       }

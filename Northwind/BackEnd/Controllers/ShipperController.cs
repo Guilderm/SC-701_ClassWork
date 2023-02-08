@@ -13,7 +13,7 @@ public class ShipperController : ControllerBase
 
 	public ShipperController()
 		{
-		_unitOfWork = new UnitOfWork(new DBContext());
+		_unitOfWork = new UnitOfWork();
 		}
 
 	#region HttpGet
