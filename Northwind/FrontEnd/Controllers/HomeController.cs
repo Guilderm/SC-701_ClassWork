@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace FrontEnd.Controllers;
+
 public class HomeController : Controller
 	{
 	private readonly ILogger<HomeController> _logger;
