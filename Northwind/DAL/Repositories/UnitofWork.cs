@@ -7,7 +7,10 @@ public class UnitOfWork : IUnitOfWork
    {
    private readonly DBContext _DBcontext;
 
+   //This will generate a Repository for Catergory that wil only be based on the Generic repository.
    public IGenericRepository<Category> _category;
+
+   //This will generate a Custom repository that inherits from the Generic Repository for shipper.
    public IShipperRepository _shipper;
 
    public UnitOfWork()
