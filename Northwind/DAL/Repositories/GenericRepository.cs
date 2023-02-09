@@ -73,8 +73,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		{
 		try
 			{
-			_ = _DBContext.Set<TEntity>().Attach(entity);
-			_ = _DBContext.Set<TEntity>().Remove(entity);
+			_DBContext.Set<TEntity>().Attach(entity);
+			_DBContext.Set<TEntity>().Remove(entity);
 			return true;
 			}
 		catch (Exception)

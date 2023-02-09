@@ -25,16 +25,6 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 	public IGenericRepository<Category> Category => _category ??= new GenericRepository<Category>(_DBcontext);
 	public IShipperRepository Shipper => _shipper ??= new ShipperRepository(_DBcontext);
 
-
-
-
-
-	/// <summary>
-	/// ///////////////////////////////////////////////////////////////////////////////////
-	/// </summary>
-	/// 
-
-
 	public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class => new GenericRepository<TEntity>(_DBcontext);
 
 	public void SaveChanges()

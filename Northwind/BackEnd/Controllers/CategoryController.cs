@@ -1,4 +1,7 @@
-﻿using BackEnd.Models;
+﻿using AutoMapper;
+using BackEnd.DTOs;
+using BackEnd.Models;
+using DAL.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +9,11 @@ namespace BackEnd.Controllers;
 
 public class CategoryController : BaseController<Category>
 	{
+	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
+		{
+		}
+
+
 	#region Mappers
 	private static CategoryModel MapEntityToModel(Category entity)
 		{
@@ -30,69 +38,64 @@ public class CategoryController : BaseController<Category>
 
 	#region GET|Read - Used to retrieve a resource or a collection of resources.
 	[HttpGet]
-	public JsonResult Get()
+	public IActionResult Get()
 		{
-		IEnumerable<Category> categories = _Repository.GetAll();
-
-		var categoryList = new List<CategoryModel>();
-
-		foreach (Category category in categories)
-			{
-			categoryList.Add(MapEntityToModel(category));
-			}
-
-		return new JsonResult(categoryList);
+		IEnumerable<Category> dbResult = _Repository.GetAll();
+		IList<CategoryDTO> mappedResult = _Mapper.Map<IList<CategoryDTO>>(dbResult);
+		return Ok(mappedResult);
 		}
 
-	// GET api/<CategoryController>/5
-	[HttpGet("{id}")]
-	public JsonResult Get(int id)
+	[HttpGet("{id:int}")]
+	public IActionResult Get(int id)
 		{
-		Category category;
-		category = _Repository.Get(id);
-
-		return new JsonResult(MapEntityToModel(category));
-
+		Category dbResult = _Repository.Get(id);
+		CategoryDTO mappedResult = _Mapper.Map<CategoryDTO>(dbResult);
+		return Ok(mappedResult);
 		}
 	#endregion
 
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public JsonResult Post([FromBody] CategoryModel category)
+	public IActionResult Post([FromBody] CategoryDTO requestDTO)
 		{
-		Category entity = MapModelToEntity(category);
+		Category mappedResult = _Mapper.Map<Category>(requestDTO);
 
-		_Repository.Add(entity);
+		_Repository.Add(mappedResult);
 		_unitOfWork.SaveChanges();
 
-		return new JsonResult(MapEntityToModel(entity));
+		Category dbResult = _Repository.Get(mappedResult.CategoryId);
+
+		return Ok(dbResult);
 		}
 	#endregion
 
 	#region PUT|Update - Used to update an existing resource.
 	[HttpPut]
-	public JsonResult Put([FromBody] CategoryModel category)
+	public IActionResult Put([FromBody] CategoryDTO requestDTO)
 		{
-		_Repository.Update(MapModelToEntity(category));
+		Category result = _Mapper.Map<Category>(requestDTO);
+		_Repository.Update(result);
 		_unitOfWork.SaveChanges();
 
-		return new JsonResult(MapModelToEntity(category));
+		return Ok(result);
 		}
 	#endregion
 
 	#region  PATCH|Update - Used to partially update an existing resource.
 	//Not implemented
+	[HttpPatch]
 	#endregion
 
 	#region  DELETE|Delete - Used to delete a resource.
-	[HttpDelete("{id}")]
-	public JsonResult Delete(int id)
+
+	[HttpDelete("{id:int}")]
+	public IActionResult Delete(int id)
 		{
-		var category = new Category { CategoryId= id };
-		_Repository.Remove(category);
+		Category dbResult = _Repository.Get(id);
+		_Repository.Remove(dbResult);
 		_unitOfWork.SaveChanges();
 
-		return new JsonResult(MapEntityToModel(category));
+		return NoContent();
 		}
 	#endregion
 	}

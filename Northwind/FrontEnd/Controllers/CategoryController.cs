@@ -94,7 +94,7 @@ public class CategoryController : Controller
 		try
 			{
 			categoryHelper = new CategoryHelper();
-			_ = categoryHelper.Delete(category.CategoryID);
+			categoryHelper.Delete(category.CategoryID);
 
 			return RedirectToAction(nameof(Index));
 			}
