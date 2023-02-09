@@ -2,11 +2,10 @@
 using BackEnd.DTOs;
 using DAL.Interfaces;
 using Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class CategoryController : BaseController<Category>
+public class CategoryController : BaseController<Category, CategoryDTO>
 	{
 	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
@@ -57,13 +56,7 @@ public class CategoryController : BaseController<Category>
 		}
 	#endregion
 
-	#region  PATCH|Update - Used to partially update an existing resource.
-	//Not implemented
-	[HttpPatch]
-	#endregion
-
-	#region  DELETE|Delete - Used to delete a resource.
-
+	#region DELETE|Delete - Used to delete a resource.
 	[HttpDelete("{id:int}")]
 	public IActionResult Delete(int id)
 		{
