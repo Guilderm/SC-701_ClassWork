@@ -37,7 +37,7 @@ public class ShipperController : ControllerBase
 	[HttpPost]
 	public JsonResult Post([FromBody] Shipper Shipper)
 		{
-		_ = _unitOfWork.Shipper.Add(Shipper);
+		_unitOfWork.Shipper.Add(Shipper);
 		return new JsonResult(Shipper);
 		}
 	#endregion
@@ -46,7 +46,7 @@ public class ShipperController : ControllerBase
 	[HttpPut]
 	public JsonResult Put([FromBody] Shipper Shipper)
 		{
-		_ = _unitOfWork.Shipper.Update(Shipper);
+		_unitOfWork.Shipper.Update(Shipper);
 
 		return new JsonResult(Shipper);
 		}
@@ -57,7 +57,7 @@ public class ShipperController : ControllerBase
 	public JsonResult Delete(int id)
 		{
 		Shipper Shipper = new() { ShipperId=id };
-		_ = _unitOfWork.Shipper.Remove(Shipper);
+		_unitOfWork.Shipper.Remove(Shipper);
 
 		return new JsonResult(Shipper);
 		}

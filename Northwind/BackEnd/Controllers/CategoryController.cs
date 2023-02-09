@@ -75,7 +75,8 @@ public class CategoryController : ControllerBase
 	public JsonResult Post([FromBody] CategoryModel category)
 		{
 		Category entity = MapModelToEntity(category);
-		_ = _unitOfWork.Category.Add(entity);
+		_unitOfWork.Category.Add(entity);
+		_unitOfWork.Complete();
 		return new JsonResult(MapEntityToModel(entity));
 		}
 

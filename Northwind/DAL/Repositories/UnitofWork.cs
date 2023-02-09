@@ -27,12 +27,13 @@ public class UnitOfWork : IUnitOfWork
 		{
 		try
 			{
-			_ = _DBcontext.SaveChanges();
+			int rowsAffected = _DBcontext.SaveChanges();
+			Console.WriteLine($"EF affected {rowsAffected} rows when saving changes.");
 			return true;
 			}
-		catch (Exception e)
+		catch (Exception ex)
 			{
-			_ = e.Message;
+			Console.WriteLine(ex.Message);
 			return false;
 			}
 		}
