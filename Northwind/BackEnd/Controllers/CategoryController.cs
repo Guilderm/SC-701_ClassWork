@@ -38,9 +38,7 @@ public class CategoryController : BaseController<Category>
 
 		foreach (Category category in categories)
 			{
-			categoryList.Add(MapEntityToModel(category)
-
-				 );
+			categoryList.Add(MapEntityToModel(category));
 			}
 
 		return new JsonResult(categoryList);
