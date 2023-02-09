@@ -49,7 +49,7 @@ public class CategoryController : BaseController<Category>
 	public JsonResult Get(int id)
 		{
 		Category category;
-		category = _unitOfWork.Category.Get(id);
+		category = _Repository.Get(id);
 
 		return new JsonResult(MapEntityToModel(category));
 
