@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BackEnd.DTOs;
-using BackEnd.Models;
 using DAL.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -12,29 +11,6 @@ public class CategoryController : BaseController<Category>
 	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
 		}
-
-
-	#region Mappers
-	private static CategoryModel MapEntityToModel(Category entity)
-		{
-		return new CategoryModel
-			{
-			CategoryId = entity.CategoryId,
-			CategoryName = entity.CategoryName,
-			Description = entity.Description
-			};
-		}
-
-	private static Category MapModelToEntity(CategoryModel model)
-		{
-		return new Category
-			{
-			CategoryId = model.CategoryId,
-			CategoryName = model.CategoryName,
-			Description = model.Description
-			};
-		}
-	#endregion
 
 	#region GET|Read - Used to retrieve a resource or a collection of resources.
 	[HttpGet]
