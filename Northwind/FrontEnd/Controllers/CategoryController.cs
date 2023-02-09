@@ -9,9 +9,9 @@ public class CategoryController : Controller
 	private CategoryHelper? categoryHelper;
 
 	// GET: CategoryController
+	[HttpGet]
 	public ActionResult Index()
 		{
-
 		categoryHelper = new CategoryHelper();
 		List<CategoryViewModel> lista = categoryHelper.GetAll();
 
@@ -19,6 +19,7 @@ public class CategoryController : Controller
 		}
 
 	// GET: CategoryController/Details/5
+	[HttpGet]
 	public ActionResult Details(int id)
 		{
 		categoryHelper = new CategoryHelper();
@@ -28,6 +29,7 @@ public class CategoryController : Controller
 		}
 
 	// GET: CategoryController/Create
+	[HttpGet]
 	public ActionResult Create() => View();
 
 	// POST: CategoryController/Create
@@ -92,7 +94,7 @@ public class CategoryController : Controller
 		try
 			{
 			categoryHelper = new CategoryHelper();
-			_ = categoryHelper.Delete(category.CategoryID);
+			categoryHelper.Delete(category.CategoryID);
 
 			return RedirectToAction(nameof(Index));
 			}

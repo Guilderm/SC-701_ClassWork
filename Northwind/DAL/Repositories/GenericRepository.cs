@@ -1,6 +1,7 @@
 ﻿using DAL.Interfaces;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+
 using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
@@ -9,24 +10,15 @@ namespace DAL.Repositories;
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 	{
 	protected readonly DBContext _DBContext;
+	private readonly DbSet<TEntity> _dbSet;
 
 	public GenericRepository(DBContext DBContex)
 		{
 		_DBContext = DBContex;
+		_dbSet = _DBContext.Set<TEntity>();
 		}
 
-	public bool Add(TEntity entity)
-		{
-		try
-			{
-			_ = _DBContext.Set<TEntity>().Add(entity);
-			return true;
-			}
-		catch (Exception)
-			{
-			return false;
-			}
-		}
+	public void Add(TEntity entity) => _dbSet.Add(entity);
 
 	public void AddRange(IEnumerable<TEntity> entities)
 		{
@@ -81,8 +73,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		{
 		try
 			{
-			_ = _DBContext.Set<TEntity>().Attach(entity);
-			_ = _DBContext.Set<TEntity>().Remove(entity);
+			_DBContext.Set<TEntity>().Attach(entity);
+			_DBContext.Set<TEntity>().Remove(entity);
 			return true;
 			}
 		catch (Exception)

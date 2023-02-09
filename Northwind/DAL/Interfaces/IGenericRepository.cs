@@ -3,7 +3,7 @@
 namespace DAL.Interfaces;
 public interface IGenericRepository<TEntity>
 	{
-	bool Add(TEntity entity);
+	void Add(TEntity entity);
 	void AddRange(IEnumerable<TEntity> entities);
 	IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 	TEntity Get(int id);
