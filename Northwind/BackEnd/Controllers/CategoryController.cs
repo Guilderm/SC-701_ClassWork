@@ -1,24 +1,11 @@
 ﻿using BackEnd.Models;
-using DAL.Interfaces;
-using DAL.Repositories;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CategoryController : ControllerBase
+public class CategoryController : BaseController<Category>
 	{
-	private readonly IUnitOfWork _unitOfWork;
-	private readonly IGenericRepository<Category> _Repository;
-
-	public CategoryController()
-		{
-		_unitOfWork = new UnitOfWork();
-		_Repository = _unitOfWork.GetRepository<Category>();
-		}
-
 	#region Mappers
 	private static CategoryModel MapEntityToModel(Category entity)
 		{
@@ -41,7 +28,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region GET: api/<CategoryController>
+	#region GET|Read - Used to retrieve a resource or a collection of resources.
 	[HttpGet]
 	public JsonResult Get()
 		{
@@ -71,7 +58,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region POST api/<CategoryController>
+	#region POST|Create - Used to create a new resource.
 	[HttpPost]
 	public JsonResult Post([FromBody] CategoryModel category)
 		{
@@ -84,7 +71,7 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region PUT api/<CategoryController>/5
+	#region PUT|Update - Used to update an existing resource.
 	[HttpPut]
 	public JsonResult Put([FromBody] CategoryModel category)
 		{
@@ -95,7 +82,11 @@ public class CategoryController : ControllerBase
 		}
 	#endregion
 
-	#region  DELETE api/<CategoryController>/5
+	#region  PATCH|Update - Used to partially update an existing resource.
+	//Not implemented
+	#endregion
+
+	#region  DELETE|Delete - Used to delete a resource.
 	[HttpDelete("{id}")]
 	public JsonResult Delete(int id)
 		{

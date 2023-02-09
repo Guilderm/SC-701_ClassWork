@@ -10,10 +10,12 @@ namespace BackEnd.Controllers;
 public class ShipperController : ControllerBase
 	{
 	private readonly IUnitOfWork _unitOfWork;
+	private readonly IGenericRepository<Shipper> _Repository;
 
 	public ShipperController()
 		{
 		_unitOfWork = new UnitOfWork();
+		_Repository = _unitOfWork.GetRepository<Shipper>();
 		}
 
 	#region HttpGet
