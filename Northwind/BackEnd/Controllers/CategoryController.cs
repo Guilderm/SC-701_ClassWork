@@ -10,7 +10,7 @@ public class CategoryController : BaseController<Category, CategoryDTO>
 	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
 		}
-
+	/*
 	#region GET|Read - Used to retrieve a resource or a collection of resources.
 	[HttpGet]
 	public IActionResult Get()
@@ -67,4 +67,5 @@ public class CategoryController : BaseController<Category, CategoryDTO>
 		return NoContent();
 		}
 	#endregion
+	*/
 	}
