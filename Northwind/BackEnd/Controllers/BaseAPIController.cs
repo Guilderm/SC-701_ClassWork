@@ -1,5 +1,4 @@
-﻿using BackEnd.Models;
-using DAL.Interfaces;
+﻿using DAL.Interfaces;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +16,4 @@ public class BaseController<TEntity> : ControllerBase where TEntity : class
 		_unitOfWork = new UnitOfWork();
 		_Repository = _unitOfWork.GetRepository<TEntity>();
 		}
-
-	#region Mappers
-	protected virtual CategoryModel? MapEntityToModel(TEntity entity) => null;
-
-	protected virtual TEntity? MapModelToEntity(CategoryModel model) => null;
-	#endregion
 	}
-
