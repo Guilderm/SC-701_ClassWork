@@ -6,5 +6,7 @@ public interface IUnitOfWork : IDisposable
 	IGenericRepository<Category> Category { get; }
 	IShipperRepository Shipper { get; }
 
-	bool Complete();
+	IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+
+	void SaveChanges();
 	}
