@@ -2,9 +2,9 @@
 
 namespace BackEnd.DTOs;
 
-public class ShipperDTO
+public class ShipperDTO : IDTO
 	{
-	public int CategoryId { get; set; }
+	public int categoryId { get; set; }
 	[Required]
 	public string CategoryName { get; set; } = null!;
 	public string Description { get; set; } = null!;
