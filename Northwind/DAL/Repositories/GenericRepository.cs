@@ -18,7 +18,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 		_dbSet = _DBContext.Set<TEntity>();
 		}
 
-	public void Add(TEntity entity) => _dbSet.Add(entity);
+	public void Insert(TEntity entity) => _dbSet.Add(entity);
 
 	public void AddRange(IEnumerable<TEntity> entities)
 		{

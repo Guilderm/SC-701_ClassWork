@@ -2,6 +2,7 @@
 using BackEnd.DTOs;
 using DAL.Interfaces;
 using Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
@@ -28,22 +29,31 @@ public class CategoryController : BaseController<Category, CategoryDTO>
 		return Ok(mappedResult);
 		}
 	#endregion
+	*/
 
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public IActionResult Post([FromBody] CategoryDTO requestDTO)
+	public override IActionResult Post([FromBody] CategoryDTO requestDTO)
 		{
+
+		if (!ModelState.IsValid)
+			{
+			//_logger.LogError($"Invalid POST attempt in {nameof(CreateCountry)}");
+			return BadRequest(ModelState);
+			}
+
 		Category mappedResult = _Mapper.Map<Category>(requestDTO);
 
-		_Repository.Add(mappedResult);
+		_Repository.Insert(mappedResult);
 		_unitOfWork.SaveChanges();
 
-		Category dbResult = _Repository.Get(mappedResult.CategoryId);
+		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
 
-		return Ok(dbResult);
+		return CreatedAtAction(nameof(Get), new { id = mappedResult.CategoryId }, mappedResult);
 		}
-	#endregion
 
+	#endregion
+	/*
 	#region PUT|Update - Used to update an existing resource.
 	[HttpPut]
 	public IActionResult Put([FromBody] CategoryDTO requestDTO)

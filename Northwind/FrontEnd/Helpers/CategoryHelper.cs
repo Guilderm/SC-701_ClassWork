@@ -1,72 +1,106 @@
 ﻿using FrontEnd.Models;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace FrontEnd.Helpers;
+namespace FrontEnd.Helpers
+{
+    public class CategoryHelper
+    {
+        private ServiceRepository ServiceRepository;
 
-public class CategoryHelper
-	{
-	private readonly ServiceRepository ServiceRepository;
 
-	public CategoryHelper()
-		{
-		ServiceRepository = new ServiceRepository();
-		}
+        public CategoryHelper()
+        {
+            ServiceRepository= new ServiceRepository();
+        }
 
-	public List<CategoryViewModel> GetAll()
-		{
-		List<CategoryViewModel> lista;
 
-		HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/");
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
 
-		return lista;
-		}
+        public List<CategoryViewModel> GetAll()
+        {
+            List<CategoryViewModel> lista;
 
-	public CategoryViewModel Get(int id)
-		{
-		CategoryViewModel Category;
 
-		HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/" + id.ToString());
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+            HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/");
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            lista= JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
 
-		return Category;
-		}
 
-	public CategoryViewModel Create(CategoryViewModel category)
-		{
 
-		CategoryViewModel Category;
+            return lista;
+        }
 
-		HttpResponseMessage responseMessage = ServiceRepository.PostResponse("api/category/" ,category);
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+        public CategoryViewModel Get(int id)
+        {
+            CategoryViewModel Category;
 
-		return Category;
-		}
 
-	public CategoryViewModel Edit(CategoryViewModel category)
-		{
+            HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/" + id.ToString());
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
-		CategoryViewModel Category;
 
-		HttpResponseMessage responseMessage = ServiceRepository.PutResponse("api/category/", category);
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
-		return Category;
-		}
+            return Category;
+        }
 
-	public CategoryViewModel Delete(int id)
-		{
 
-		CategoryViewModel Category;
+        public CategoryViewModel Create(CategoryViewModel category) {
 
-		HttpResponseMessage responseMessage = ServiceRepository.DeleteResponse("api/category/" + id.ToString());
-		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
-		return Category;
-		}
-	}
+            CategoryViewModel Category;
+
+
+            HttpResponseMessage responseMessage = ServiceRepository.PostResponse("api/category/" ,category);
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+
+
+
+            return Category;
+        }
+
+
+
+
+        public CategoryViewModel Edit(CategoryViewModel category)
+        {
+
+
+            CategoryViewModel Category;
+
+
+            HttpResponseMessage responseMessage = ServiceRepository.PutResponse("api/category/", category);
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+
+
+
+            return Category;
+        }
+
+
+
+        public CategoryViewModel Delete(int id)
+        {
+
+
+            CategoryViewModel Category;
+
+
+            HttpResponseMessage responseMessage = ServiceRepository.DeleteResponse("api/category/" + id.ToString());
+            var content = responseMessage.Content.ReadAsStringAsync().Result;
+            Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+
+
+
+            return Category;
+        }
+
+    } 
+
+
+
+
+    }
+

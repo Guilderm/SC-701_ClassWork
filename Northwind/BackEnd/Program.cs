@@ -4,7 +4,7 @@ using DAL.Repositories;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Insert services to the container.
 builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

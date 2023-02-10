@@ -1,18 +1,34 @@
-﻿namespace FrontEnd.Helpers;
-
-public class ServiceRepository
+﻿namespace FrontEnd.Helpers
 	{
-	public HttpClient Client { get; set; }
 
-	public ServiceRepository()
+	public class ServiceRepository
 		{
-		Client = new HttpClient
+		public HttpClient Client { get; set; }
+
+		public ServiceRepository()
 			{
-			BaseAddress = new Uri("http://localhost:5283")
-			};
+			Client = new HttpClient();
+			Client.BaseAddress = new Uri("http://localhost:5283");
+
+			}
+		public HttpResponseMessage GetResponse(string url)
+			{
+			return Client.GetAsync(url).Result;
+			}
+		public HttpResponseMessage PutResponse(string url, object model)
+			{
+			return Client.PutAsJsonAsync(url, model).Result;
+			}
+		public HttpResponseMessage PostResponse(string url, object model)
+			{
+			return Client.PostAsJsonAsync(url, model).Result;
+			}
+		public HttpResponseMessage DeleteResponse(string url)
+			{
+			return Client.DeleteAsync(url).Result;
+			}
+
+
+
 		}
-	public HttpResponseMessage GetResponse(string url) => Client.GetAsync(url).Result;
-	public HttpResponseMessage PutResponse(string url, object model) => Client.PutAsJsonAsync(url, model).Result;
-	public HttpResponseMessage PostResponse(string url, object model) => Client.PostAsJsonAsync(url, model).Result;
-	public HttpResponseMessage DeleteResponse(string url) => Client.DeleteAsync(url).Result;
 	}

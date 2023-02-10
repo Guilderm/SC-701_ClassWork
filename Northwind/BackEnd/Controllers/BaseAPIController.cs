@@ -39,21 +39,32 @@ public class BaseController<TEntity, TModel> : ControllerBase
 		}
 	#endregion
 
+
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public IActionResult Post([FromBody] TModel requestDTO)
+	[ProducesResponseType(StatusCodes.Status400BadRequest)]
+	[ProducesResponseType(StatusCodes.Status201Created)]
+	[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+	public virtual IActionResult Post([FromBody] TModel requestDTO)
 		{
+
+		if (!ModelState.IsValid)
+			{
+			//_logger.LogError($"Invalid POST attempt in {nameof(CreateCountry)}");
+			return BadRequest(ModelState);
+			}
+
 		TEntity mappedResult = _Mapper.Map<TEntity>(requestDTO);
 
-		_Repository.Add(mappedResult);
+		_Repository.Insert(mappedResult);
 		_unitOfWork.SaveChanges();
 
 		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
 
 		return Ok(mappedResult);
 		}
-	#endregion
 
+	#endregion
 	#region PUT|Update - Used to update an existing resource.
 	[HttpPut]
 	public IActionResult Put([FromBody] TModel requestDTO)
