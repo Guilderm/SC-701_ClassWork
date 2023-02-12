@@ -2,7 +2,6 @@
 using BackEnd.DTOs;
 using DAL.Interfaces;
 using Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
@@ -12,6 +11,7 @@ public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
 		{
 		}
 
+	/*
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
 	public override IActionResult Post([FromBody] ShipperDTO requestDTO)
@@ -33,4 +33,5 @@ public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
 		return CreatedAtAction(nameof(Get), new { id = mappedResult.ShipperId }, mappedResult);
 		}
 	#endregion
+	*/
 	}

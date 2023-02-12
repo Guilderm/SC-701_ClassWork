@@ -44,6 +44,10 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	[HttpGet]
 	public IActionResult Get()
 		{
+		if (!ModelState.IsValid)
+			{
+			return BadRequest(ModelState);
+			}
 		IEnumerable<TEntity> dbResult = _Repository.GetAll();
 		IList<TModel> mappedResult = _Mapper.Map<IList<TModel>>(dbResult);
 		return Ok(mappedResult);
@@ -52,6 +56,10 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	[HttpGet("{id}")]
 	public IActionResult Get(int id)
 		{
+		if (!ModelState.IsValid)
+			{
+			return BadRequest(ModelState);
+			}
 		TEntity dbResult = _Repository.Get(id);
 		TModel mappedResult = _Mapper.Map<TModel>(dbResult);
 		return Ok(mappedResult);
@@ -62,6 +70,10 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	[HttpPut]
 	public IActionResult Put([FromBody] TModel requestDTO)
 		{
+		if (!ModelState.IsValid)
+			{
+			return BadRequest(ModelState);
+			}
 		TEntity mappedResult = _Mapper.Map<TEntity>(requestDTO);
 		_Repository.Update(mappedResult);
 		_unitOfWork.SaveChanges();
@@ -79,6 +91,10 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	[HttpDelete("{id:int}")]
 	public IActionResult Delete(int id)
 		{
+		if (!ModelState.IsValid)
+			{
+			return BadRequest(ModelState);
+			}
 		TEntity dbResult = _Repository.Get(id);
 		_Repository.Remove(dbResult);
 		_unitOfWork.SaveChanges();
