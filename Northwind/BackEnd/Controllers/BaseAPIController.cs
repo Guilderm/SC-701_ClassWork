@@ -7,7 +7,7 @@ namespace BackEnd.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class BaseAPIController<TEntity, TModel> : ControllerBase
-	 where TEntity : class
+	 where TEntity : class, new()
 	 where TModel : class, new()
 	{
 	protected readonly IUnitOfWork _unitOfWork;

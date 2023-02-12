@@ -1,5 +1,4 @@
-﻿using Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace DAL.Interfaces;
 public interface IGenericRepository<TEntity>
@@ -13,5 +12,4 @@ public interface IGenericRepository<TEntity>
 	void RemoveRange(IEnumerable<TEntity> entities);
 	TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 	bool Update(TEntity entity);
-	void Insert(Shipper mappedResult);
 	}

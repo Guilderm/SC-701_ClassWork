@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class ShipperController : BaseAPIController<Category, ShipperDTO>
+public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
 	{
 	public ShipperController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
