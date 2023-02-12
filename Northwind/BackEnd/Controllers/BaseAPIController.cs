@@ -6,7 +6,7 @@ namespace BackEnd.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BaseController<TEntity, TModel> : ControllerBase
+public class BaseAPIController<TEntity, TModel> : ControllerBase
 	 where TEntity : class
 	 where TModel : class, new()
 	{
@@ -14,7 +14,7 @@ public class BaseController<TEntity, TModel> : ControllerBase
 	protected readonly IGenericRepository<TEntity> _Repository;
 	protected readonly IMapper _Mapper;
 
-	public BaseController(IUnitOfWork unitOfWork, IMapper Mapper)
+	public BaseAPIController(IUnitOfWork unitOfWork, IMapper Mapper)
 		{
 		_unitOfWork = unitOfWork;
 		_Repository = _unitOfWork.GetRepository<TEntity>();

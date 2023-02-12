@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class ShipperController : BaseController<Category, CategoryDTO>
+public class ShipperController : BaseAPIController<Category, ShipperDTO>
 	{
 	public ShipperController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
@@ -14,7 +14,7 @@ public class ShipperController : BaseController<Category, CategoryDTO>
 
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public override IActionResult Post([FromBody] CategoryDTO requestDTO)
+	public override IActionResult Post([FromBody] ShipperDTO requestDTO)
 		{
 
 		if (!ModelState.IsValid)
@@ -23,14 +23,14 @@ public class ShipperController : BaseController<Category, CategoryDTO>
 			return BadRequest(ModelState);
 			}
 
-		Category mappedResult = _Mapper.Map<Category>(requestDTO);
+		Shipper mappedResult = _Mapper.Map<Shipper>(requestDTO);
 
 		_Repository.Insert(mappedResult);
 		_unitOfWork.SaveChanges();
 
 		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
 
-		return CreatedAtAction(nameof(Get), new { id = mappedResult.CategoryId }, mappedResult);
+		return CreatedAtAction(nameof(Get), new { id = mappedResult.ShipperId }, mappedResult);
 		}
 	#endregion
 	}

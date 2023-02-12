@@ -2,9 +2,9 @@
 
 namespace BackEnd.DTOs;
 
-public class CategoryDTO : IDTO
+public class CategoryDTO
 	{
-	public int categoryId { get; set; }
+	public int CategoryId { get; set; }
 	[Required]
 	public string CategoryName { get; set; } = null!;
 	public string Description { get; set; } = null!;

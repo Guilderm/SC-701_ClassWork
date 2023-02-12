@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class CategoryController : BaseController<Category, CategoryDTO>
+public class CategoryController : BaseAPIController<Category, CategoryDTO>
 	{
 	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
 		{
