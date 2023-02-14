@@ -1,6 +1,7 @@
 ﻿using DAL.Interfaces;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
@@ -10,13 +11,13 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 	{
 	protected readonly DBContext _DBContext;
 	private readonly DbSet<TEntity> _dbSet;
-	//private readonly ILogger _logger;
+	private readonly ILogger _logger;
 
 	public GenericRepository(DBContext DBContex)
 		{
 		_DBContext = DBContex;
 		_dbSet = _DBContext.Set<TEntity>();
-		//_logger = Log.ForContext<GenericRepository<TEntity>>();
+		_logger = Log.ForContext<GenericRepository<TEntity>>();
 		}
 
 	public void Insert(TEntity entity) => _dbSet.Add(entity);
@@ -47,11 +48,12 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
 	public TEntity Get(int id)
 		{
+		_logger.Fatal($"will look for Entity with id {id} not found.");
 		TEntity entity = _DBContext.Set<TEntity>().Find(id);
 
 		if (entity == null)
 			{
-			//_logger.Error($"Entity of type {typeof(TEntity)}, with id {id} not found.");
+			_logger.Error($"Entity of type {typeof(TEntity)}, with id {id} not found.");
 			}
 		return entity;
 		}
