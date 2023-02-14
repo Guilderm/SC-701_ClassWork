@@ -7,8 +7,11 @@ namespace BackEnd.Controllers;
 
 public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
 	{
-	public ShipperController(IUnitOfWork unitOfWork, IMapper Mapper) : base(unitOfWork, Mapper)
+
+	private readonly ILogger<ShipperController> _logger;
+	public ShipperController(IUnitOfWork unitOfWork, IMapper Mapper, ILogger<ShipperController> logger) : base(unitOfWork, Mapper)
 		{
+		_logger = logger;
 		}
 
 	/*

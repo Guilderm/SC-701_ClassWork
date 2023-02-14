@@ -20,6 +20,7 @@ public class CategoryController : BaseAPIController<Category, CategoryDTO>
 	public override IActionResult Post([FromBody] CategoryDTO requestDTO)
 		{
 		_logger.LogCritical($"will look for Entity with of name {nameof(requestDTO)} and see if we get it.");
+
 		if (!ModelState.IsValid)
 			{
 			_logger.LogError($"Invalid POST attempt in {nameof(requestDTO)}");
@@ -30,6 +31,7 @@ public class CategoryController : BaseAPIController<Category, CategoryDTO>
 
 		_Repository.Insert(mappedResult);
 		_unitOfWork.SaveChanges();
+
 		_logger.LogCritical($"The ID of Entity with of name {nameof(requestDTO)} is {mappedResult.CategoryId} .");
 		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
 
