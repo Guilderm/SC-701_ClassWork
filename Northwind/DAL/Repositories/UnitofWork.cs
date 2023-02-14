@@ -24,17 +24,15 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 		try
 			{
 			int rowsAffected = _DBcontext.SaveChanges();
-			Console.WriteLine($"EF affected {rowsAffected} rows when saving changes.");
+			_logger.LogInformation("", $"EF affected {rowsAffected} rows when saving changes.");
 			}
 		catch (DbUpdateException ex)
 			{
-			// Log the exception
-			Console.WriteLine(ex.Message);
+			_logger.LogError(ex, "We got a DB Update Exception");
 			}
 		catch (Exception ex)
 			{
-			// Log the exception
-			Console.WriteLine(ex.Message);
+			_logger.LogError(ex, "We got a Exception");
 			}
 		}
 

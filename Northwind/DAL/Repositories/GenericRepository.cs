@@ -42,6 +42,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 			}
 		catch (Exception)
 			{
+
 			return Enumerable.Empty<TEntity>();
 			}
 		}
