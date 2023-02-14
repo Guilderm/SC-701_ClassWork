@@ -1,7 +1,7 @@
 ﻿using DAL.Interfaces;
 using Entities;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.Logging;
 using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
@@ -11,11 +11,13 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 	{
 	protected readonly DBContext _DBContext;
 	private readonly DbSet<TEntity> _dbSet;
+	private readonly ILogger<GenericRepository<TEntity>> _logger;
 
 	public GenericRepository(DBContext DBContex)
 		{
 		_DBContext = DBContex;
 		_dbSet = _DBContext.Set<TEntity>();
+		_logger = new LoggerFactory().CreateLogger<GenericRepository<TEntity>>();
 		}
 
 	public void Insert(TEntity entity) => _dbSet.Add(entity);
@@ -40,21 +42,21 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 			}
 		catch (Exception)
 			{
+
 			return Enumerable.Empty<TEntity>();
 			}
 		}
 
 	public TEntity Get(int id)
 		{
-		try
+		_logger.LogCritical($"will look for Entity with id {id} not found.");
+		TEntity entity = _DBContext.Set<TEntity>().Find(id);
+
+		if (entity == null)
 			{
-			TEntity? entity = _DBContext.Set<TEntity>().Find(id);
-			return entity ?? throw new ObjectNotFoundException($"Entity with id {id} not found.");
+			_logger.LogError($"Entity of type {typeof(TEntity)}, with id {id} not found.");
 			}
-		catch (Exception ex)
-			{
-			throw new Exception($"Error retrieving entity with id {id}: {ex.Message}");
-			}
+		return entity;
 		}
 
 	public IEnumerable<TEntity> GetAll()

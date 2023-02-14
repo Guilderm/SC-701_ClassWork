@@ -1,6 +1,7 @@
 ﻿using DAL.Interfaces;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace DAL.Repositories;
 
@@ -8,10 +9,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 	{
 	private readonly DBContext _DBcontext;
 	private bool disposed = false;
+	private readonly ILogger<UnitOfWork> _logger;
 
-	public UnitOfWork()
+	public UnitOfWork(ILogger<UnitOfWork> logger)
 		{
 		_DBcontext = new DBContext();
+		_logger = logger;
 		}
 
 	public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class => new GenericRepository<TEntity>(_DBcontext);
@@ -21,17 +24,15 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 		try
 			{
 			int rowsAffected = _DBcontext.SaveChanges();
-			Console.WriteLine($"EF affected {rowsAffected} rows when saving changes.");
+			_logger.LogInformation("", $"EF affected {rowsAffected} rows when saving changes.");
 			}
 		catch (DbUpdateException ex)
 			{
-			// Log the exception
-			Console.WriteLine(ex.Message);
+			_logger.LogError(ex, "We got a DB Update Exception");
 			}
 		catch (Exception ex)
 			{
-			// Log the exception
-			Console.WriteLine(ex.Message);
+			_logger.LogError(ex, "We got a Exception");
 			}
 		}
 

@@ -13,12 +13,15 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	protected readonly IUnitOfWork _unitOfWork;
 	protected readonly IGenericRepository<TEntity> _Repository;
 	protected readonly IMapper _Mapper;
+	private readonly ILogger<BaseAPIController<TEntity, TModel>> _logger;
 
 	public BaseAPIController(IUnitOfWork unitOfWork, IMapper Mapper)
 		{
 		_unitOfWork = unitOfWork;
 		_Repository = _unitOfWork.GetRepository<TEntity>();
 		_Mapper = Mapper;
+		_logger = new LoggerFactory().CreateLogger<BaseAPIController<TEntity, TModel>>()
+		;
 		}
 
 	#region POST|Create - Used to create a new resource.
