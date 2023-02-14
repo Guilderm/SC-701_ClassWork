@@ -1,7 +1,6 @@
 ﻿using DAL.Interfaces;
 using Entities;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 using System.Data.Entity.Core;
 using System.Linq.Expressions;
 
@@ -11,7 +10,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 	{
 	protected readonly DBContext _DBContext;
 	private readonly DbSet<TEntity> _dbSet;
-	private readonly ILogger _logger;
+	//private readonly ILogger _logger;
 
 	public GenericRepository(DBContext DBContex)
 		{
