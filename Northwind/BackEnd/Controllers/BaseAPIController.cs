@@ -28,8 +28,12 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 	[HttpPost]
 	public virtual IActionResult Post([FromBody] TModel requestDTO)
 		{
+
+		_logger.LogInformation($"Registration Attempt for {requestDTO} ");
+
 		if (!ModelState.IsValid)
 			{
+			_logger.LogError($"Invalid POST attempt in {nameof(requestDTO)}");
 			return BadRequest(ModelState);
 			}
 
@@ -38,7 +42,6 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 		_Repository.Insert(mappedResult);
 		_unitOfWork.SaveChanges();
 
-		//return CreatedAtAction(nameof(Get), new { id = mappedResult.Id }, mappedResult);
 		return Ok(mappedResult);
 		}
 	#endregion
