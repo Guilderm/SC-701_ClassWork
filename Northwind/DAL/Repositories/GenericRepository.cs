@@ -22,17 +22,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
 	public void Insert(TEntity entity) => _dbSet.Add(entity);
 
-	public void AddRange(IEnumerable<TEntity> entities)
-		{
-		try
-			{
-			_DBContext.Set<TEntity>().AddRange(entities);
-			}
-		catch (Exception)
-			{
-			throw;
-			}
-		}
+	public void AddRange(IEnumerable<TEntity> entities) => _DBContext.Set<TEntity>().AddRange(entities);
 
 	public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
 		{
