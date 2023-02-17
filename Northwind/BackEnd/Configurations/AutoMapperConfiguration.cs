@@ -8,7 +8,7 @@ public class AutoMapperConfiguration : Profile
 	{
 	public AutoMapperConfiguration()
 		{
-		CreateMap<Category, CategoryDTO>().ReverseMap();
-		CreateMap<Shipper, ShipperDTO>().ReverseMap();
+		CreateMap<Category, CategoryDto>().ReverseMap();
+		CreateMap<Shipper, ShipperDto>().ReverseMap();
 		}
 	}

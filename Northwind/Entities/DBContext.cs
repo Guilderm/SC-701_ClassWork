@@ -2,19 +2,19 @@
 
 namespace Entities;
 
-public partial class DBContext : DbContext
+public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
 	{
-	public DBContext()
+	public DbContext()
 		{
 		}
 
-	public DBContext(DbContextOptions<DBContext> options) : base(options)
+	public DbContext(DbContextOptions<DbContext> options) : base(options)
 		{
 		}
 
 	public virtual DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; } = null!;
 	public virtual DbSet<Category> Categories { get; set; } = null!;
-	public virtual DbSet<CategorySalesFor1997> CategorySalesFor1997s { get; set; } = null!;
+	public virtual DbSet<CategorySalesFor1997> CategorySalesFor1997S { get; set; } = null!;
 	public virtual DbSet<CurrentProductList> CurrentProductLists { get; set; } = null!;
 	public virtual DbSet<Customer> Customers { get; set; } = null!;
 	public virtual DbSet<CustomerAndSuppliersByCity> CustomerAndSuppliersByCities { get; set; } = null!;
@@ -27,7 +27,7 @@ public partial class DBContext : DbContext
 	public virtual DbSet<OrderSubtotal> OrderSubtotals { get; set; } = null!;
 	public virtual DbSet<OrdersQry> OrdersQries { get; set; } = null!;
 	public virtual DbSet<Product> Products { get; set; } = null!;
-	public virtual DbSet<ProductSalesFor1997> ProductSalesFor1997s { get; set; } = null!;
+	public virtual DbSet<ProductSalesFor1997> ProductSalesFor1997S { get; set; } = null!;
 	public virtual DbSet<ProductsAboveAveragePrice> ProductsAboveAveragePrices { get; set; } = null!;
 	public virtual DbSet<ProductsByCategory> ProductsByCategories { get; set; } = null!;
 	public virtual DbSet<QuarterlyOrder> QuarterlyOrders { get; set; } = null!;

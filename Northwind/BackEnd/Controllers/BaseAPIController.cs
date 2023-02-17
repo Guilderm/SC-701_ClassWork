@@ -6,41 +6,41 @@ namespace BackEnd.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BaseAPIController<TEntity, TModel> : ControllerBase
+public class BaseApiController<TEntity, TModel> : ControllerBase
 	 where TEntity : class, new()
 	 where TModel : class, new()
 	{
-	protected readonly IUnitOfWork _unitOfWork;
-	protected readonly IGenericRepository<TEntity> _Repository;
-	protected readonly IMapper _Mapper;
-	private readonly ILogger<BaseAPIController<TEntity, TModel>> _logger;
+	protected readonly IUnitOfWork UnitOfWork;
+	protected readonly IGenericRepository<TEntity> Repository;
+	protected readonly IMapper Mapper;
+	private readonly ILogger<BaseApiController<TEntity, TModel>> _logger;
 
-	public BaseAPIController(IUnitOfWork unitOfWork, IMapper Mapper)
+	public BaseApiController(IUnitOfWork unitOfWork, IMapper mapper)
 		{
-		_unitOfWork = unitOfWork;
-		_Repository = _unitOfWork.GetRepository<TEntity>();
-		_Mapper = Mapper;
-		_logger = new LoggerFactory().CreateLogger<BaseAPIController<TEntity, TModel>>()
+		UnitOfWork = unitOfWork;
+		Repository = UnitOfWork.GetRepository<TEntity>();
+		this.Mapper = mapper;
+		_logger = new LoggerFactory().CreateLogger<BaseApiController<TEntity, TModel>>()
 		;
 		}
 
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public virtual IActionResult Post([FromBody] TModel requestDTO)
+	public virtual IActionResult Post([FromBody] TModel requestDto)
 		{
 
-		_logger.LogInformation($"Registration Attempt for {requestDTO} ");
+		_logger.LogInformation($"Registration Attempt for {requestDto} ");
 
 		if (!ModelState.IsValid)
 			{
-			_logger.LogError($"Invalid POST attempt in {nameof(requestDTO)}");
+			_logger.LogError($"Invalid POST attempt in {nameof(requestDto)}");
 			return BadRequest(ModelState);
 			}
 
-		TEntity mappedResult = _Mapper.Map<TEntity>(requestDTO);
+		TEntity mappedResult = Mapper.Map<TEntity>(requestDto);
 
-		_Repository.Insert(mappedResult);
-		_unitOfWork.SaveChanges();
+		Repository.Insert(mappedResult);
+		UnitOfWork.SaveChanges();
 
 		return Ok(mappedResult);
 		}
@@ -54,8 +54,8 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 			{
 			return BadRequest(ModelState);
 			}
-		IEnumerable<TEntity> dbResult = _Repository.GetAll();
-		IList<TModel> mappedResult = _Mapper.Map<IList<TModel>>(dbResult);
+		IEnumerable<TEntity> dbResult = Repository.GetAll();
+		IList<TModel> mappedResult = Mapper.Map<IList<TModel>>(dbResult);
 		return Ok(mappedResult);
 		}
 
@@ -66,23 +66,23 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 			{
 			return BadRequest(ModelState);
 			}
-		TEntity dbResult = _Repository.Get(id);
-		TModel mappedResult = _Mapper.Map<TModel>(dbResult);
+		TEntity dbResult = Repository.Get(id);
+		TModel mappedResult = Mapper.Map<TModel>(dbResult);
 		return Ok(mappedResult);
 		}
 	#endregion
 
 	#region PUT|Update - Used to update an existing resource.
 	[HttpPut]
-	public IActionResult Put([FromBody] TModel requestDTO)
+	public IActionResult Put([FromBody] TModel requestDto)
 		{
 		if (!ModelState.IsValid)
 			{
 			return BadRequest(ModelState);
 			}
-		TEntity mappedResult = _Mapper.Map<TEntity>(requestDTO);
-		_Repository.Update(mappedResult);
-		_unitOfWork.SaveChanges();
+		TEntity mappedResult = Mapper.Map<TEntity>(requestDto);
+		Repository.Update(mappedResult);
+		UnitOfWork.SaveChanges();
 
 		return Ok(mappedResult);
 		}
@@ -101,9 +101,9 @@ public class BaseAPIController<TEntity, TModel> : ControllerBase
 			{
 			return BadRequest(ModelState);
 			}
-		TEntity dbResult = _Repository.Get(id);
-		_Repository.Remove(dbResult);
-		_unitOfWork.SaveChanges();
+		TEntity dbResult = Repository.Get(id);
+		Repository.Remove(dbResult);
+		UnitOfWork.SaveChanges();
 
 		return NoContent();
 		}

@@ -2,28 +2,29 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using DbContext = Entities.DbContext;
 
 namespace DAL.Repositories;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 	{
-	private readonly DBContext _DBcontext;
-	private bool disposed = false;
+	private readonly DbContext _dBcontext;
+	private bool _disposed = false;
 	private readonly ILogger<UnitOfWork> _logger;
 
 	public UnitOfWork(ILogger<UnitOfWork> logger)
 		{
-		_DBcontext = new DBContext();
+		_dBcontext = new DbContext();
 		_logger = logger;
 		}
 
-	public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class => new GenericRepository<TEntity>(_DBcontext);
+	public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class => new GenericRepository<TEntity>(_dBcontext);
 
 	public void SaveChanges()
 		{
 		try
 			{
-			int rowsAffected = _DBcontext.SaveChanges();
+			int rowsAffected = _dBcontext.SaveChanges();
 			_logger.LogInformation("", $"EF affected {rowsAffected} rows when saving changes.");
 			}
 		catch (DbUpdateException ex)
@@ -38,14 +39,14 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 
 	protected virtual void Dispose(bool disposing)
 		{
-		if (!disposed)
+		if (!_disposed)
 			{
 			if (disposing)
 				{
-				_DBcontext.Dispose();
+				_dBcontext.Dispose();
 				}
 			}
-		disposed = true;
+		_disposed = true;
 		}
 
 	public void Dispose()

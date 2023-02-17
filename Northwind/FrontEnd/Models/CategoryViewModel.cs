@@ -5,7 +5,7 @@ namespace FrontEnd.Models;
 public class CategoryViewModel
 	{
 
-	public int CategoryID { get; set; }
+	public int CategoryId { get; set; }
 	[Display(Name = "Categoría")]
 	public string CategoryName { get; set; }
 	public string Description { get; set; }

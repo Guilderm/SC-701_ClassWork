@@ -2,7 +2,7 @@
 
 namespace BackEnd.DTOs;
 
-public class CategoryDTO
+public class CategoryDto
 	{
 	public int CategoryId { get; set; }
 	[Required]

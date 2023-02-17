@@ -5,12 +5,12 @@ namespace FrontEnd.Helpers;
 
 public class CategoryHelper
 	{
-	private ServiceRepository ServiceRepository;
+	private ServiceRepository _serviceRepository;
 
 
 	public CategoryHelper()
 		{
-		ServiceRepository = new ServiceRepository();
+		_serviceRepository = new ServiceRepository();
 		}
 
 
@@ -20,7 +20,7 @@ public class CategoryHelper
 		List<CategoryViewModel> lista;
 
 
-		HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/");
+		HttpResponseMessage responseMessage = _serviceRepository.GetResponse("api/category/");
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
 
@@ -31,16 +31,16 @@ public class CategoryHelper
 
 	public CategoryViewModel Get(int id)
 		{
-		CategoryViewModel Category;
+		CategoryViewModel category;
 
 
-		HttpResponseMessage responseMessage = ServiceRepository.GetResponse("api/category/" + id.ToString());
+		HttpResponseMessage responseMessage = _serviceRepository.GetResponse("api/category/" + id.ToString());
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 
-		return Category;
+		return category;
 		}
 
 
@@ -48,16 +48,16 @@ public class CategoryHelper
 		{
 
 
-		CategoryViewModel Category;
+		CategoryViewModel category;
 
 
-		HttpResponseMessage responseMessage = ServiceRepository.PostResponse("api/category/" ,category);
+		HttpResponseMessage responseMessage = _serviceRepository.PostResponse("api/category/" ,category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 
-		return Category;
+		return category;
 		}
 
 
@@ -67,16 +67,16 @@ public class CategoryHelper
 		{
 
 
-		CategoryViewModel Category;
+		CategoryViewModel category;
 
 
-		HttpResponseMessage responseMessage = ServiceRepository.PutResponse("api/category/", category);
+		HttpResponseMessage responseMessage = _serviceRepository.PutResponse("api/category/", category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 
-		return Category;
+		return category;
 		}
 
 
@@ -85,16 +85,16 @@ public class CategoryHelper
 		{
 
 
-		CategoryViewModel Category;
+		CategoryViewModel category;
 
 
-		HttpResponseMessage responseMessage = ServiceRepository.DeleteResponse("api/category/" + id.ToString());
+		HttpResponseMessage responseMessage = _serviceRepository.DeleteResponse("api/category/" + id.ToString());
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		Category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 
-		return Category;
+		return category;
 		}
 
 	}

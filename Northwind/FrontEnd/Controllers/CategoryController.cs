@@ -6,14 +6,14 @@ namespace FrontEnd.Controllers;
 
 public class CategoryController : Controller
 	{
-	private CategoryHelper categoryHelper;
+	private CategoryHelper _categoryHelper;
 
 	// GET: CategoryController
 	public ActionResult Index()
 		{
 
-		categoryHelper = new CategoryHelper();
-		List<CategoryViewModel> lista = categoryHelper.GetAll();
+		_categoryHelper = new CategoryHelper();
+		List<CategoryViewModel> lista = _categoryHelper.GetAll();
 
 		return View(lista);
 		}
@@ -21,8 +21,8 @@ public class CategoryController : Controller
 	// GET: CategoryController/Details/5
 	public ActionResult Details(int id)
 		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+		_categoryHelper = new CategoryHelper();
+		CategoryViewModel category = _categoryHelper.Get(id);
 
 		return View(category);
 		}
@@ -37,10 +37,10 @@ public class CategoryController : Controller
 		{
 		try
 			{
-			categoryHelper = new CategoryHelper();
-			category = categoryHelper.Create(category);
+			_categoryHelper = new CategoryHelper();
+			category = _categoryHelper.Create(category);
 
-			return RedirectToAction("Details", new { id = category.CategoryID });
+			return RedirectToAction("Details", new { id = category.CategoryId });
 			}
 		catch
 			{
@@ -51,8 +51,8 @@ public class CategoryController : Controller
 	// GET: CategoryController/Edit/5
 	public ActionResult Edit(int id)
 		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+		_categoryHelper = new CategoryHelper();
+		CategoryViewModel category = _categoryHelper.Get(id);
 
 		return View(category);
 		}
@@ -79,8 +79,8 @@ public class CategoryController : Controller
 	// GET: CategoryController/Delete/5
 	public ActionResult Delete(int id)
 		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+		_categoryHelper = new CategoryHelper();
+		CategoryViewModel category = _categoryHelper.Get(id);
 
 		return View(category);
 		}
@@ -92,8 +92,8 @@ public class CategoryController : Controller
 		{
 		try
 			{
-			categoryHelper = new CategoryHelper();
-			categoryHelper.Delete(category.CategoryID);
+			_categoryHelper = new CategoryHelper();
+			_categoryHelper.Delete(category.CategoryId);
 
 
 			return RedirectToAction(nameof(Index));

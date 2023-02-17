@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BackEnd.DTOs;
 
-public class ShipperDTO
+public class ShipperDto
 	{
 	public int ShipperId { get; set; }
 	[Required]

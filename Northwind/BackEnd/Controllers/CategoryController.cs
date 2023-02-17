@@ -6,33 +6,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class CategoryController : BaseAPIController<Category, CategoryDTO>
+public class CategoryController : BaseApiController<Category, CategoryDto>
 	{
 	private readonly ILogger<CategoryController> _logger;
 
-	public CategoryController(IUnitOfWork unitOfWork, IMapper Mapper, ILogger<CategoryController> logger) : base(unitOfWork, Mapper)
+	public CategoryController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryController> logger) : base(unitOfWork, mapper)
 		{
 		_logger = logger;
 		}
 
 	#region POST|Create - Used to create a new resource.
 	[HttpPost]
-	public override IActionResult Post([FromBody] CategoryDTO requestDTO)
+	public override IActionResult Post([FromBody] CategoryDto requestDto)
 		{
-		_logger.LogCritical($"will look for Entity with of name {nameof(requestDTO)} and see if we get it.");
+		_logger.LogCritical($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 
 		if (!ModelState.IsValid)
 			{
-			_logger.LogError($"Invalid POST attempt in {nameof(requestDTO)}");
+			_logger.LogError($"Invalid POST attempt in {nameof(requestDto)}");
 			return BadRequest(ModelState);
 			}
 
-		Category mappedResult = _Mapper.Map<Category>(requestDTO);
+		Category mappedResult = Mapper.Map<Category>(requestDto);
 
-		_Repository.Insert(mappedResult);
-		_unitOfWork.SaveChanges();
+		Repository.Insert(mappedResult);
+		UnitOfWork.SaveChanges();
 
-		_logger.LogCritical($"The ID of Entity with of name {nameof(requestDTO)} is {mappedResult.CategoryId} .");
+		_logger.LogCritical($"The ID of Entity with of name {nameof(requestDto)} is {mappedResult.CategoryId} .");
 		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
 
 		return CreatedAtAction(nameof(Get), new { id = mappedResult.CategoryId }, mappedResult);
