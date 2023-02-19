@@ -10,12 +10,16 @@ public class CategoryController : BaseApiController<Category, CategoryDto>
 	{
 	private readonly ILogger<CategoryController> _logger;
 
-	public CategoryController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryController> logger) : base(unitOfWork, mapper)
+	public CategoryController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryController> logger) : base(
+		unitOfWork, mapper)
 		{
 		_logger = logger;
 		}
 
+	//refactor so to extract IActionResult Post([FromBody] CategoryDto requestDto) to BaseApiController
+
 	#region POST|Create - Used to create a new resource.
+
 	[HttpPost]
 	public override IActionResult Post([FromBody] CategoryDto requestDto)
 		{
@@ -37,6 +41,6 @@ public class CategoryController : BaseApiController<Category, CategoryDto>
 
 		return CreatedAtAction(nameof(Get), new { id = mappedResult.CategoryId }, mappedResult);
 		}
-	#endregion
 
+	#endregion
 	}

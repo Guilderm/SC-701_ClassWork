@@ -1,11 +1,11 @@
 ﻿namespace Entities;
 
-public partial class Supplier
-	{
+public class Supplier
+{
 	public Supplier()
-		{
+	{
 		Products = new HashSet<Product>();
-		}
+	}
 
 	public int SupplierId { get; set; }
 	public string CompanyName { get; set; } = null!;
@@ -21,4 +21,4 @@ public partial class Supplier
 	public string? HomePage { get; set; }
 
 	public virtual ICollection<Product> Products { get; set; }
-	}
+}

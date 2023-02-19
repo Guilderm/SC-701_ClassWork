@@ -1,7 +1,7 @@
 ﻿namespace Entities;
 
-public partial class Invoice
-	{
+public class Invoice
+{
 	public string? ShipName { get; set; }
 	public string? ShipAddress { get; set; }
 	public string? ShipCity { get; set; }
@@ -28,4 +28,4 @@ public partial class Invoice
 	public float Discount { get; set; }
 	public decimal? ExtendedPrice { get; set; }
 	public decimal? Freight { get; set; }
-	}
+}

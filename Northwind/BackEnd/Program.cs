@@ -1,7 +1,9 @@
 using BackEnd.Configurations;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Newtonsoft.Json;
 using Serilog;
+using Serilog.Core;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +11,10 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
 
 // configures Serilog.
-Serilog.Core.Logger logger = new LoggerConfiguration()
-  .ReadFrom.Configuration(builder.Configuration)
-  .Enrich.FromLogContext()
-  .CreateLogger();
+Logger? logger = new LoggerConfiguration()
+	.ReadFrom.Configuration(builder.Configuration)
+	.Enrich.FromLogContext()
+	.CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
@@ -22,7 +24,7 @@ builder.Logging.AddSerilog(logger);
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddControllers().AddNewtonsoftJson(op
 	=> op.SerializerSettings.ReferenceLoopHandling
-	= Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+		= ReferenceLoopHandling.Ignore);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

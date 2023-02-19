@@ -3,14 +3,14 @@
 namespace Entities;
 
 public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
-	{
+{
 	public DbContext()
-		{
-		}
+	{
+	}
 
 	public DbContext(DbContextOptions<DbContext> options) : base(options)
-		{
-		}
+	{
+	}
 
 	public virtual DbSet<AlphabeticalListOfProduct> AlphabeticalListOfProducts { get; set; } = null!;
 	public virtual DbSet<Category> Categories { get; set; } = null!;
@@ -41,15 +41,16 @@ public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
 	public virtual DbSet<Territory> Territories { get; set; } = null!;
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
+	{
 		if (!optionsBuilder.IsConfigured)
-			{
-			_ = optionsBuilder.UseSqlServer("Server=.;Database=NorthWind;Integrated Security=True;Trusted_Connection=True;");
-			}
+		{
+			_ = optionsBuilder.UseSqlServer(
+				"Server=.;Database=NorthWind;Integrated Security=True;Trusted_Connection=True;");
 		}
+	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
+	{
 		_ = modelBuilder.Entity<AlphabeticalListOfProduct>(entity =>
 		{
 			_ = entity.HasNoKey();
@@ -147,17 +148,21 @@ public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
 				.WithMany(p => p.Customers)
 				.UsingEntity<Dictionary<string, object>>(
 					"CustomerCustomerDemo",
-					l => l.HasOne<CustomerDemographic>().WithMany().HasForeignKey("CustomerTypeId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerCustomerDemo"),
-					r => r.HasOne<Customer>().WithMany().HasForeignKey("CustomerId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerCustomerDemo_Customers"),
+					l => l.HasOne<CustomerDemographic>().WithMany().HasForeignKey("CustomerTypeId")
+						.OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_CustomerCustomerDemo"),
+					r => r.HasOne<Customer>().WithMany().HasForeignKey("CustomerId").OnDelete(DeleteBehavior.ClientSetNull)
+						.HasConstraintName("FK_CustomerCustomerDemo_Customers"),
 					j =>
 					{
 						_ = j.HasKey("CustomerId", "CustomerTypeId").IsClustered(false);
 
 						_ = j.ToTable("CustomerCustomerDemo");
 
-						_ = j.IndexerProperty<string>("CustomerId").HasMaxLength(5).HasColumnName("CustomerID").IsFixedLength();
+						_ = j.IndexerProperty<string>("CustomerId").HasMaxLength(5).HasColumnName("CustomerID")
+							.IsFixedLength();
 
-						_ = j.IndexerProperty<string>("CustomerTypeId").HasMaxLength(10).HasColumnName("CustomerTypeID").IsFixedLength();
+						_ = j.IndexerProperty<string>("CustomerTypeId").HasMaxLength(10).HasColumnName("CustomerTypeID")
+							.IsFixedLength();
 					});
 		});
 
@@ -240,8 +245,10 @@ public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
 				.WithMany(p => p.Employees)
 				.UsingEntity<Dictionary<string, object>>(
 					"EmployeeTerritory",
-					l => l.HasOne<Territory>().WithMany().HasForeignKey("TerritoryId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeeTerritories_Territories"),
-					r => r.HasOne<Employee>().WithMany().HasForeignKey("EmployeeId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeeTerritories_Employees"),
+					l => l.HasOne<Territory>().WithMany().HasForeignKey("TerritoryId").OnDelete(DeleteBehavior.ClientSetNull)
+						.HasConstraintName("FK_EmployeeTerritories_Territories"),
+					r => r.HasOne<Employee>().WithMany().HasForeignKey("EmployeeId").OnDelete(DeleteBehavior.ClientSetNull)
+						.HasConstraintName("FK_EmployeeTerritories_Employees"),
 					j =>
 					{
 						_ = j.HasKey("EmployeeId", "TerritoryId").IsClustered(false);
@@ -722,7 +729,7 @@ public partial class DbContext : Microsoft.EntityFrameworkCore.DbContext
 		});
 
 		OnModelCreatingPartial(modelBuilder);
-		}
+	}
 
 	partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-	}
+}

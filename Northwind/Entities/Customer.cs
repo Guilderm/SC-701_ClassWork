@@ -1,12 +1,12 @@
 ﻿namespace Entities;
 
-public partial class Customer
-	{
+public class Customer
+{
 	public Customer()
-		{
+	{
 		Orders = new HashSet<Order>();
 		CustomerTypes = new HashSet<CustomerDemographic>();
-		}
+	}
 
 	public string CustomerId { get; set; } = null!;
 	public string CompanyName { get; set; } = null!;
@@ -23,4 +23,4 @@ public partial class Customer
 	public virtual ICollection<Order> Orders { get; set; }
 
 	public virtual ICollection<CustomerDemographic> CustomerTypes { get; set; }
-	}
+}
