@@ -4,10 +4,10 @@ public class HttpService
 {
 	public HttpService(IConfiguration configuration)
 	{
-		Client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
+		_client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
 	}
 
-	private HttpClient Client { get; } = new();
+	private HttpClient _client { get; } = new();
 
 	public HttpResponseMessage GetResponse(string url)
 	{
