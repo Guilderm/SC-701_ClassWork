@@ -4,18 +4,18 @@ using Newtonsoft.Json;
 namespace FrontEnd.Helpers;
 
 public class CategoryHelper
-	{
+{
 	private readonly ServiceRepository _serviceRepository;
 
 
 	public CategoryHelper()
-		{
+	{
 		_serviceRepository = new ServiceRepository();
-		}
+	}
 
 
 	public List<CategoryViewModel> GetAll()
-		{
+	{
 		List<CategoryViewModel> lista;
 
 
@@ -25,10 +25,10 @@ public class CategoryHelper
 
 
 		return lista;
-		}
+	}
 
 	public CategoryViewModel Get(int id)
-		{
+	{
 		CategoryViewModel category;
 
 
@@ -38,33 +38,33 @@ public class CategoryHelper
 
 
 		return category;
-		}
+	}
 
 
 	public CategoryViewModel Create(CategoryViewModel category)
-		{
+	{
 		HttpResponseMessage responseMessage = _serviceRepository.PostResponse("api/category/", category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 		return category;
-		}
+	}
 
 
 	public CategoryViewModel Edit(CategoryViewModel category)
-		{
+	{
 		HttpResponseMessage responseMessage = _serviceRepository.PutResponse("api/category/", category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 
 		return category;
-		}
+	}
 
 
 	public CategoryViewModel Delete(int id)
-		{
+	{
 		CategoryViewModel category;
 
 
@@ -74,5 +74,5 @@ public class CategoryHelper
 
 
 		return category;
-		}
 	}
+}

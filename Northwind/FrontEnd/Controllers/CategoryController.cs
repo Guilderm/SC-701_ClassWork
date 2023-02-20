@@ -66,7 +66,7 @@ public class CategoryController : Controller
 	{
 		try
 		{
-			CategoryHelper categoryHelper = new CategoryHelper();
+			CategoryHelper categoryHelper = new();
 			category = categoryHelper.Edit(category);
 
 
