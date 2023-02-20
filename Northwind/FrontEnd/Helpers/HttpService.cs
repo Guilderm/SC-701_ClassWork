@@ -1,8 +1,8 @@
 ﻿namespace FrontEnd.Helpers;
 
-public class ServiceRepository
+public class HttpService
 {
-	public ServiceRepository()
+	public HttpService()
 	{
 		Client = new HttpClient
 		{
@@ -10,7 +10,7 @@ public class ServiceRepository
 		};
 	}
 
-	public HttpClient Client { get; set; }
+	private HttpClient Client { get; }
 
 	public HttpResponseMessage GetResponse(string url)
 	{
