@@ -3,21 +3,23 @@ using Newtonsoft.Json;
 
 namespace FrontEnd.Helpers;
 
-public class CategoryHelper
+public class CategoryService
 {
 	private readonly HttpService _httpService;
+	private readonly string _resourcePath;
 
 
-	public CategoryHelper()
+	public CategoryService(IConfiguration configuration)
 	{
 		_httpService = new HttpService();
+		_resourcePath = configuration.GetSection("BackendURLs")["categoryPath"];
 	}
 
 	public List<CategoryViewModel> GetAll()
 	{
 		List<CategoryViewModel> lista;
 
-		HttpResponseMessage responseMessage = _httpService.GetResponse("api/category/");
+		HttpResponseMessage responseMessage = _httpService.GetResponse(_resourcePath);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
 
@@ -29,7 +31,7 @@ public class CategoryHelper
 	{
 		CategoryViewModel category;
 
-		HttpResponseMessage responseMessage = _httpService.GetResponse("api/category/" + id);
+		HttpResponseMessage responseMessage = _httpService.GetResponse(_resourcePath + id);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
@@ -38,7 +40,7 @@ public class CategoryHelper
 
 	public CategoryViewModel Create(CategoryViewModel category)
 	{
-		HttpResponseMessage responseMessage = _httpService.PostResponse("api/category/", category);
+		HttpResponseMessage responseMessage = _httpService.PostResponse(_resourcePath, category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
@@ -48,7 +50,7 @@ public class CategoryHelper
 
 	public CategoryViewModel Edit(CategoryViewModel category)
 	{
-		HttpResponseMessage responseMessage = _httpService.PutResponse("api/category/", category);
+		HttpResponseMessage responseMessage = _httpService.PutResponse(_resourcePath, category);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
@@ -59,7 +61,7 @@ public class CategoryHelper
 	{
 		CategoryViewModel category;
 
-		HttpResponseMessage responseMessage = _httpService.DeleteResponse("api/category/" + id);
+		HttpResponseMessage responseMessage = _httpService.DeleteResponse(_resourcePath + id);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
 		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
