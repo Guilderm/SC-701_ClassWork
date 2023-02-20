@@ -11,21 +11,21 @@ public class HttpService
 
 	public HttpResponseMessage GetResponse(string url)
 	{
-		return Client.GetAsync(url).Result;
+		return _client.GetAsync(url).Result;
 	}
 
 	public HttpResponseMessage PutResponse(string url, object model)
 	{
-		return Client.PutAsJsonAsync(url, model).Result;
+		return _client.PutAsJsonAsync(url, model).Result;
 	}
 
 	public HttpResponseMessage PostResponse(string url, object model)
 	{
-		return Client.PostAsJsonAsync(url, model).Result;
+		return _client.PostAsJsonAsync(url, model).Result;
 	}
 
 	public HttpResponseMessage DeleteResponse(string url)
 	{
-		return Client.DeleteAsync(url).Result;
+		return _client.DeleteAsync(url).Result;
 	}
 }
