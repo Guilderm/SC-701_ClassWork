@@ -1,10 +1,9 @@
-﻿namespace FrontEnd.Helpers;
+﻿namespace FrontEnd.Services;
 
 public class HttpService
 {
 	public HttpService(IConfiguration configuration)
 	{
-		//string baseUrl = configuration.GetSection("BackendURLs")["baseUrl"];
 		Client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
 	}
 

@@ -1,7 +1,7 @@
 ﻿using FrontEnd.Models;
 using Newtonsoft.Json;
 
-namespace FrontEnd.Helpers;
+namespace FrontEnd.Services;
 
 public class CategoryService
 {
@@ -17,23 +17,16 @@ public class CategoryService
 
 	public List<CategoryViewModel> GetAll()
 	{
-		List<CategoryViewModel> lista;
-
 		HttpResponseMessage responseMessage = _httpService.GetResponse(_resourcePath);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
-
-
-		return lista;
+		return JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
 	}
 
 	public CategoryViewModel Get(int id)
 	{
-		CategoryViewModel category;
-
 		HttpResponseMessage responseMessage = _httpService.GetResponse(_resourcePath + id);
 		string content = responseMessage.Content.ReadAsStringAsync().Result;
-		category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
+		CategoryViewModel category = JsonConvert.DeserializeObject<CategoryViewModel>(content);
 
 		return category;
 	}

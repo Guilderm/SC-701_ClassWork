@@ -1,5 +1,5 @@
-﻿using FrontEnd.Services;
-using FrontEnd.Models;
+﻿using FrontEnd.Models;
+using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontEnd.Controllers;
@@ -16,9 +16,9 @@ public class CategoryController : Controller
 	// GET: CategoryController
 	public ActionResult Index()
 	{
-		List<CategoryViewModel> lista = _categoryService.GetAll();
+		List<CategoryViewModel> categories = _categoryService.GetAll();
 
-		return View(lista);
+		return View(categories);
 	}
 
 	// GET: CategoryController/Details/5
