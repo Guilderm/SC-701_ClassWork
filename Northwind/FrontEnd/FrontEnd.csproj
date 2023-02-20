@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Views\Category\Create.cshtml" />
     <None Include="Views\Category\Delete.cshtml" />
     <None Include="Views\Category\Details.cshtml" />
     <None Include="Views\Category\Edit.cshtml" />
@@ -22,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
   </ItemGroup>
