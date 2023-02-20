@@ -11,7 +11,7 @@ public class CategoryService
 
 	public CategoryService(IConfiguration configuration)
 	{
-		_httpService = new HttpService();
+		_httpService = new HttpService(configuration);
 		_resourcePath = configuration.GetSection("BackendURLs")["categoryPath"];
 	}
 

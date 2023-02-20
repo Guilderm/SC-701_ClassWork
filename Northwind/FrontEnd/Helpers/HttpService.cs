@@ -2,33 +2,36 @@
 
 public class HttpService
 {
-	public HttpService()
-	{
-		Client = new HttpClient
-		{
-			BaseAddress = new Uri("http://localhost:5283")
-		};
-	}
+	private readonly HttpClient _client;
 
-	private HttpClient Client { get; }
+	public HttpService(IConfiguration configuration)
+	{
+		string? baseUrl = configuration.GetValue<string>("baseUrl");
+		if (string.IsNullOrEmpty(baseUrl))
+		{
+			throw new ArgumentException("Base URL not found in configuration.");
+		}
+
+		_client.BaseAddress = new Uri(baseUrl);
+	}
 
 	public HttpResponseMessage GetResponse(string url)
 	{
-		return Client.GetAsync(url).Result;
+		return _client.GetAsync(url).Result;
 	}
 
 	public HttpResponseMessage PutResponse(string url, object model)
 	{
-		return Client.PutAsJsonAsync(url, model).Result;
+		return _client.PutAsJsonAsync(url, model).Result;
 	}
 
 	public HttpResponseMessage PostResponse(string url, object model)
 	{
-		return Client.PostAsJsonAsync(url, model).Result;
+		return _client.PostAsJsonAsync(url, model).Result;
 	}
 
 	public HttpResponseMessage DeleteResponse(string url)
 	{
-		return Client.DeleteAsync(url).Result;
+		return _client.DeleteAsync(url).Result;
 	}
 }
