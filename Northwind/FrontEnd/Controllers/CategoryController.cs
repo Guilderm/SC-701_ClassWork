@@ -1,106 +1,104 @@
-﻿using FrontEnd.Helpers;
-using FrontEnd.Models;
+﻿using FrontEnd.Models;
+using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontEnd.Controllers;
 
 public class CategoryController : Controller
+{
+	private readonly CategoryService _categoryService;
+
+	public CategoryController(IConfiguration configuration)
 	{
-	private CategoryHelper categoryHelper;
+		_categoryService = new CategoryService(configuration);
+	}
 
 	// GET: CategoryController
 	public ActionResult Index()
-		{
+	{
+		List<CategoryViewModel> categories = _categoryService.GetAll();
 
-		categoryHelper = new CategoryHelper();
-		List<CategoryViewModel> lista = categoryHelper.GetAll();
-
-		return View(lista);
-		}
+		return View(categories);
+	}
 
 	// GET: CategoryController/Details/5
 	public ActionResult Details(int id)
-		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+	{
+		CategoryViewModel category = _categoryService.Get(id);
 
 		return View(category);
-		}
+	}
 
 	// GET: CategoryController/Create
-	public ActionResult Create() => View();
+	public ActionResult Create()
+	{
+		return View();
+	}
 
 	// POST: CategoryController/Create
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public ActionResult Create(CategoryViewModel category)
-		{
+	{
 		try
-			{
-			categoryHelper = new CategoryHelper();
-			category = categoryHelper.Create(category);
+		{
+			category = _categoryService.Create(category);
 
-			return RedirectToAction("Details", new { id = category.CategoryID });
-			}
-		catch
-			{
-			return View();
-			}
+			return RedirectToAction("Details", new { id = category.CategoryId });
 		}
+		catch
+		{
+			return View();
+		}
+	}
 
 	// GET: CategoryController/Edit/5
 	public ActionResult Edit(int id)
-		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+	{
+		CategoryViewModel category = _categoryService.Get(id);
 
 		return View(category);
-		}
+	}
 
 	// POST: CategoryController/Edit/5
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public ActionResult Edit(CategoryViewModel category)
-		{
+	{
 		try
-			{
-			var categoryHelper = new CategoryHelper();
-			category = categoryHelper.Edit(category);
-
+		{
+			category = _categoryService.Edit(category);
 
 			return RedirectToAction(nameof(Index));
-			}
-		catch
-			{
-			return View();
-			}
 		}
+		catch
+		{
+			return View();
+		}
+	}
 
 	// GET: CategoryController/Delete/5
 	public ActionResult Delete(int id)
-		{
-		categoryHelper = new CategoryHelper();
-		CategoryViewModel category = categoryHelper.Get(id);
+	{
+		CategoryViewModel category = _categoryService.Get(id);
 
 		return View(category);
-		}
+	}
 
 	// POST: CategoryController/Delete/5
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public ActionResult Delete(CategoryViewModel category)
-		{
+	{
 		try
-			{
-			categoryHelper = new CategoryHelper();
-			categoryHelper.Delete(category.CategoryID);
-
+		{
+			_categoryService.Delete(category.CategoryId);
 
 			return RedirectToAction(nameof(Index));
-			}
+		}
 		catch
-			{
+		{
 			return View();
-			}
 		}
 	}
+}

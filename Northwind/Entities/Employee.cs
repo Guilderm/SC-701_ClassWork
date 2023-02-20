@@ -1,13 +1,13 @@
 ﻿namespace Entities;
 
-public partial class Employee
-	{
+public class Employee
+{
 	public Employee()
-		{
+	{
 		InverseReportsToNavigation = new HashSet<Employee>();
 		Orders = new HashSet<Order>();
 		Territories = new HashSet<Territory>();
-		}
+	}
 
 	public int EmployeeId { get; set; }
 	public string LastName { get; set; } = null!;
@@ -33,4 +33,4 @@ public partial class Employee
 	public virtual ICollection<Order> Orders { get; set; }
 
 	public virtual ICollection<Territory> Territories { get; set; }
-	}
+}

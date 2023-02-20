@@ -1,11 +1,11 @@
 ﻿namespace Entities;
 
-public partial class Order
-	{
+public class Order
+{
 	public Order()
-		{
+	{
 		OrderDetails = new HashSet<OrderDetail>();
-		}
+	}
 
 	public int OrderId { get; set; }
 	public string? CustomerId { get; set; }
@@ -26,4 +26,4 @@ public partial class Order
 	public virtual Employee? Employee { get; set; }
 	public virtual Shipper? ShipViaNavigation { get; set; }
 	public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-	}
+}

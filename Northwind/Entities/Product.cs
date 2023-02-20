@@ -1,11 +1,11 @@
 ﻿namespace Entities;
 
-public partial class Product
-	{
+public class Product
+{
 	public Product()
-		{
+	{
 		OrderDetails = new HashSet<OrderDetail>();
-		}
+	}
 
 	public int ProductId { get; set; }
 	public string ProductName { get; set; } = null!;
@@ -21,4 +21,4 @@ public partial class Product
 	public virtual Category? Category { get; set; }
 	public virtual Supplier? Supplier { get; set; }
 	public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-	}
+}

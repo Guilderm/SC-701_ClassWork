@@ -5,14 +5,15 @@ using Entities;
 
 namespace BackEnd.Controllers;
 
-public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
-	{
-
+public class ShipperController : BaseApiController<Shipper, ShipperDto>
+{
 	private readonly ILogger<ShipperController> _logger;
-	public ShipperController(IUnitOfWork unitOfWork, IMapper Mapper, ILogger<ShipperController> logger) : base(unitOfWork, Mapper)
-		{
+
+	public ShipperController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<ShipperController> logger) : base(
+		unitOfWork, mapper)
+	{
 		_logger = logger;
-		}
+	}
 
 	/*
 	#region POST|Create - Used to create a new resource.
@@ -37,4 +38,4 @@ public class ShipperController : BaseAPIController<Shipper, ShipperDTO>
 		}
 	#endregion
 	*/
-	}
+}

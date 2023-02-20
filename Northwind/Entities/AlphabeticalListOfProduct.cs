@@ -1,7 +1,7 @@
 ﻿namespace Entities;
 
-public partial class AlphabeticalListOfProduct
-	{
+public class AlphabeticalListOfProduct
+{
 	public int ProductId { get; set; }
 	public string ProductName { get; set; } = null!;
 	public int? SupplierId { get; set; }
@@ -13,4 +13,4 @@ public partial class AlphabeticalListOfProduct
 	public short? ReorderLevel { get; set; }
 	public bool Discontinued { get; set; }
 	public string CategoryName { get; set; } = null!;
-	}
+}

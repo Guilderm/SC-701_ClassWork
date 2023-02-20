@@ -3,12 +3,11 @@
 namespace FrontEnd.Models;
 
 public class CategoryViewModel
-	{
+{
+	public int CategoryId { get; set; }
 
-	public int CategoryID { get; set; }
-	[Display(Name = "Categoría")]
-	public string CategoryName { get; set; }
+	[Display(Name = "Categoría")] public string CategoryName { get; set; }
+
 	public string Description { get; set; }
 	public byte[] Picture { get; set; }
-
-	}
+}
