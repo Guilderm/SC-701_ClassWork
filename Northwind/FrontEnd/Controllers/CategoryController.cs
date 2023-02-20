@@ -41,8 +41,6 @@ public class CategoryController : Controller
 	{
 		try
 		{
-			//category = _categoryService.Create(category);
-
 			return RedirectToAction("Details", new { id = _categoryService.Create(category).CategoryId });
 		}
 		catch
@@ -52,6 +50,7 @@ public class CategoryController : Controller
 	}
 
 	// GET: CategoryController/Edit/5
+	[HttpGet]
 	public ActionResult Edit(int id)
 	{
 		return View(_categoryService.Get(id));
@@ -74,6 +73,7 @@ public class CategoryController : Controller
 	}
 
 	// GET: CategoryController/Delete/5
+	[HttpGet]
 	public ActionResult Delete(int id)
 	{
 		return View(_categoryService.Get(id));
