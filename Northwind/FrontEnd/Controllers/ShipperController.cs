@@ -55,7 +55,7 @@ public class ShipperController : Controller
     // POST: ShipperController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, ShippersViewModel Shipper)
+    public ActionResult Edit(ShippersViewModel Shipper)
     {
         try
         {

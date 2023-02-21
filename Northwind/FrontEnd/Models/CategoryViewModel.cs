@@ -4,10 +4,10 @@ namespace FrontEnd.Models;
 
 public class CategoryViewModel
 {
-	public int CategoryId { get; set; }
+    public int CategoryId { get; set; }
 
-	[Display(Name = "Categoría")] public string CategoryName { get; set; }
+    [Display(Name = "Categoría")] public string CategoryName { get; set; }
 
-	public string Description { get; set; }
-	public byte[] Picture { get; set; }
+    public string Description { get; set; }
+    public byte[] Picture { get; set; }
 }

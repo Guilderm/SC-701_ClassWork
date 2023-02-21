@@ -2,11 +2,11 @@
 
 public class ShippersViewModel
 {
-	public int ShipperId { get; set; }
+    public int ShipperId { get; set; }
 
-	public string CompanyName { get; set; } = null!;
+    public string CompanyName { get; set; } = null!;
 
-	public string Phone { get; set; }
+    public string Phone { get; set; }
 
-	public ICollection<OrderModel> Orders { get; set; }
+    public ICollection<OrderModel> Orders { get; set; }
 }
