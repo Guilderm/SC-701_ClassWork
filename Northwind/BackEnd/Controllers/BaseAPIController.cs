@@ -24,7 +24,6 @@ public class BaseApiController<TEntity, TModel> : ControllerBase
 			;
 	}
 
-
 	#region POST|Create - Used to create a new resource.
 
 	[HttpPost]
@@ -111,7 +110,7 @@ public class BaseApiController<TEntity, TModel> : ControllerBase
 		return Ok(mappedResult);
 	}
 
-	[HttpGet("{id}")]
+	[HttpGet("{id:int}")]
 	public IActionResult Get(int id)
 	{
 		if (!ModelState.IsValid)
