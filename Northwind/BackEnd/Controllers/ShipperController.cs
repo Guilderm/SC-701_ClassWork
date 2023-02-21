@@ -2,6 +2,7 @@
 using BackEnd.DTOs;
 using DAL.Interfaces;
 using Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
@@ -15,27 +16,28 @@ public class ShipperController : BaseApiController<Shipper, ShipperDto>
 		_logger = logger;
 	}
 
-	/*
 	#region POST|Create - Used to create a new resource.
+
 	[HttpPost]
-	public override IActionResult Post([FromBody] ShipperDTO requestDTO)
-		{
+	public override IActionResult Post([FromBody] ShipperDto requestDto)
+	{
+		_logger.LogInformation($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 
 		if (!ModelState.IsValid)
-			{
-			//_logger.LogError($"Invalid POST attempt in {nameof(CreateCountry)}");
+		{
+			_logger.LogError($"Invalid POST attempt in {nameof(requestDto)}");
 			return BadRequest(ModelState);
-			}
+		}
 
-		Shipper mappedResult = _Mapper.Map<Shipper>(requestDTO);
+		Shipper mappedResult = Mapper.Map<Shipper>(requestDto);
 
-		_Repository.Insert(mappedResult);
-		_unitOfWork.SaveChanges();
+		Repository.Insert(mappedResult);
+		UnitOfWork.SaveChanges();
 
-		//TEntity dbResult = _Repository.Get(mappedResult.CategoryId);
+		_logger.LogCritical($"The ID of Entity with of name {nameof(requestDto)} is {mappedResult.ShipperId} .");
 
 		return CreatedAtAction(nameof(Get), new { id = mappedResult.ShipperId }, mappedResult);
-		}
+	}
+
 	#endregion
-	*/
 }

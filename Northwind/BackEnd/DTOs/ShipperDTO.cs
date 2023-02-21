@@ -3,12 +3,13 @@ using Entities;
 
 namespace BackEnd.DTOs;
 
-public class ShipperDto
+public sealed class ShipperDto
 {
 	public int ShipperId { get; set; }
 
 	[Required] public string CompanyName { get; set; } = null!;
 
 	public string? Phone { get; set; }
-	public virtual ICollection<Order>? Orders { get; set; }
+
+	public ICollection<Order>? Orders { get; set; }
 }

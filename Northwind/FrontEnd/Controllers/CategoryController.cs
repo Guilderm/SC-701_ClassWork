@@ -14,22 +14,21 @@ public class CategoryController : Controller
 	}
 
 	// GET: CategoryController
+	[HttpGet]
 	public ActionResult Index()
 	{
-		List<CategoryViewModel> categories = _categoryService.GetAll();
-
-		return View(categories);
+		return View(_categoryService.GetAll());
 	}
 
 	// GET: CategoryController/Details/5
+	[HttpGet]
 	public ActionResult Details(int id)
 	{
-		CategoryViewModel category = _categoryService.Get(id);
-
-		return View(category);
+		return View(_categoryService.Get(id));
 	}
 
 	// GET: CategoryController/Create
+	[HttpGet]
 	public ActionResult Create()
 	{
 		return View();
@@ -42,9 +41,7 @@ public class CategoryController : Controller
 	{
 		try
 		{
-			category = _categoryService.Create(category);
-
-			return RedirectToAction("Details", new { id = category.CategoryId });
+			return RedirectToAction("Details", new { id = _categoryService.Create(category).CategoryId });
 		}
 		catch
 		{
@@ -53,11 +50,10 @@ public class CategoryController : Controller
 	}
 
 	// GET: CategoryController/Edit/5
+	[HttpGet]
 	public ActionResult Edit(int id)
 	{
-		CategoryViewModel category = _categoryService.Get(id);
-
-		return View(category);
+		return View(_categoryService.Get(id));
 	}
 
 	// POST: CategoryController/Edit/5
@@ -67,8 +63,7 @@ public class CategoryController : Controller
 	{
 		try
 		{
-			category = _categoryService.Edit(category);
-
+			_categoryService.Edit(category);
 			return RedirectToAction(nameof(Index));
 		}
 		catch
@@ -78,11 +73,10 @@ public class CategoryController : Controller
 	}
 
 	// GET: CategoryController/Delete/5
+	[HttpGet]
 	public ActionResult Delete(int id)
 	{
-		CategoryViewModel category = _categoryService.Get(id);
-
-		return View(category);
+		return View(_categoryService.Get(id));
 	}
 
 	// POST: CategoryController/Delete/5

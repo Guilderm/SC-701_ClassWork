@@ -2,12 +2,12 @@
 
 public class HttpService
 {
+	private readonly HttpClient _client = new();
+
 	public HttpService(IConfiguration configuration)
 	{
-		Client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
+		_client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
 	}
-
-	private HttpClient Client { get; } = new();
 
 	public HttpResponseMessage GetResponse(string url)
 	{

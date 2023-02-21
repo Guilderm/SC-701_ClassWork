@@ -20,10 +20,8 @@ public class BaseApiController<TEntity, TModel> : ControllerBase
 		UnitOfWork = unitOfWork;
 		Repository = UnitOfWork.GetRepository<TEntity>();
 		Mapper = mapper;
-		_logger = new LoggerFactory().CreateLogger<BaseApiController<TEntity, TModel>>()
-			;
+		_logger = new LoggerFactory().CreateLogger<BaseApiController<TEntity, TModel>>();
 	}
-
 
 	#region POST|Create - Used to create a new resource.
 
@@ -111,7 +109,7 @@ public class BaseApiController<TEntity, TModel> : ControllerBase
 		return Ok(mappedResult);
 	}
 
-	[HttpGet("{id}")]
+	[HttpGet("{id:int}")]
 	public IActionResult Get(int id)
 	{
 		if (!ModelState.IsValid)
