@@ -44,8 +44,8 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
 	public TEntity Get(int id)
 	{
-		_logger.LogCritical($"will look for Entity with id {id} not found.");
-		TEntity? entity = DbContext.Set<TEntity>().Find(id);
+		_logger.LogInformation($"will look for Entity with id {id}.");
+		TEntity entity = DbContext.Set<TEntity>().Find(id);
 
 		if (entity == null)
 		{
