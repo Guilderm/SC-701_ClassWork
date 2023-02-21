@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Entities;
 
 namespace BackEnd.DTOs;
 
@@ -11,5 +10,5 @@ public sealed class ShipperDto
 
 	public string? Phone { get; set; }
 
-	public ICollection<Order>? Orders { get; set; }
+	public ICollection<OrderDto>? Orders { get; set; }
 }
