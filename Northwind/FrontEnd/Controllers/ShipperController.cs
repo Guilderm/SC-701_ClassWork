@@ -1,4 +1,5 @@
-﻿using FrontEnd.Services;
+﻿using FrontEnd.Models;
+using FrontEnd.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FrontEnd.Controllers;
@@ -21,7 +22,7 @@ public class ShipperController : Controller
     // GET: ShipperController/Details/5
     public ActionResult Details(int id)
     {
-        return View();
+        return View(_ShippersServices.Get(id));
     }
 
     // GET: ShipperController/Create
@@ -33,11 +34,11 @@ public class ShipperController : Controller
     // POST: ShipperController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public ActionResult Create(ShippersViewModel Shipper)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", new { id = _ShippersServices.Create(Shipper).ShipperId });
         }
         catch
         {
@@ -48,16 +49,17 @@ public class ShipperController : Controller
     // GET: ShipperController/Edit/5
     public ActionResult Edit(int id)
     {
-        return View();
+        return View(_ShippersServices.Get(id));
     }
 
     // POST: ShipperController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public ActionResult Edit(int id, ShippersViewModel Shipper)
     {
         try
         {
+            _ShippersServices.Edit(Shipper);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -69,16 +71,18 @@ public class ShipperController : Controller
     // GET: ShipperController/Delete/5
     public ActionResult Delete(int id)
     {
-        return View();
+        return View(_ShippersServices.Get(id));
     }
 
     // POST: ShipperController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public ActionResult Delete(int id, ShippersViewModel Shipper)
     {
         try
         {
+            _ShippersServices.Delete(Shipper.ShipperId);
+
             return RedirectToAction(nameof(Index));
         }
         catch
