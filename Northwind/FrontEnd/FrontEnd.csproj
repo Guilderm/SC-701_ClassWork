@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <None Include="Views\Category\Delete.cshtml" />
-    <None Include="Views\Category\Details.cshtml" />
     <None Include="Views\Category\Edit.cshtml" />
     <None Include="Views\Category\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
