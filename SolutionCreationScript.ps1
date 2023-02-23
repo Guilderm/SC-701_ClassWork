@@ -72,5 +72,6 @@ dotnet sln $solutionName.sln add `
 dotnet clean
 dotnet build
 
-# open the solution
+# open the solution and start the projects
 Invoke-Item "$basePath\$solutionName\$solutionName.sln"
+dotnet run --project ./$BackEndName ./$FrontEndName
