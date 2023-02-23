@@ -12,19 +12,17 @@ builder.Services.AddAutoMapper(typeof(AutoMapperConfiguration));
 
 // configures Serilog.
 Logger? logger = new LoggerConfiguration()
-	.ReadFrom.Configuration(builder.Configuration)
-	.Enrich.FromLogContext()
-	.CreateLogger();
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-//builder.Host.UseSerilog();
-
-
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddControllers().AddNewtonsoftJson(op
-	=> op.SerializerSettings.ReferenceLoopHandling
-		= ReferenceLoopHandling.Ignore);
+    => op.SerializerSettings.ReferenceLoopHandling
+        = ReferenceLoopHandling.Ignore);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
