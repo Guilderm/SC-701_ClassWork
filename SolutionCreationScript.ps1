@@ -58,7 +58,7 @@ rm "$basePath\$solutionName\$BackEndName\Controllers\WeatherForecastController.c
 rm "$basePath\$solutionName\$BackEndName\WeatherForecast.cs"
 
 # add folders to each project
-mkdir MyFolder
+#mkdir MyFolder
 
 # create the solution file
 dotnet new sln -n $solutionName
@@ -67,11 +67,6 @@ dotnet sln $solutionName.sln add `
     ./$DALName/$DALName.csproj `
     ./$BackEndName/$BackEndName.csproj `
     ./$FrontEndName/$FrontEndName.csproj
-
-
-# Set starup Projects
-dotnet sln $solutionName.sln set startup-project $BackEndName/$BackEndName.csproj
-dotnet sln $solutionName.sln add $FrontEndName/$FrontEndName.csproj
 
 #Clean and build the solution
 dotnet clean
