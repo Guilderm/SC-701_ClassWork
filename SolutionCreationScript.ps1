@@ -31,12 +31,14 @@ cd ..
 dotnet new webapi -n $BackEndName -o $BackEndName --no-https --framework net6.0
 cd $BackEndName
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version *
+#dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.*
 dotnet add package Swashbuckle.AspNetCore --version 6.*
 dotnet add package Serilog.aspnetcore --version *
 dotnet add package Serilog.Sinks.Console --version *
 dotnet add package Serilog.Sinks.File --version *
 dotnet add reference ../$DALName/$DALName.csproj
 dotnet add reference ../$EntityName/$EntityName.csproj
+dotnet new controller -n [ControllerName] -api --no-restore
 cd ..
 
 # create the FrontEnd project
@@ -58,7 +60,7 @@ rm "$basePath\$solutionName\$BackEndName\Controllers\WeatherForecastController.c
 rm "$basePath\$solutionName\$BackEndName\WeatherForecast.cs"
 
 # add folders to each project
-#mkdir MyFolder
+mkdir $BackEndName\controller
 
 # create the solution file
 dotnet new sln -n $solutionName
@@ -74,4 +76,33 @@ dotnet build
 
 # open the solution and start the projects
 Invoke-Item "$basePath\$solutionName\$solutionName.sln"
-dotnet run --project ./$BackEndName ./$FrontEndName
+#dotnet run --project ./$BackEndName ./$FrontEndName
+
+
+#once the models are created in the Frontend use the fallowing to create the controlers and views
+
+# sets the names and directory
+$solutionName = "MidtermExam"
+$EntityName = "Entity"
+$DALName = "DAL"
+$BackEndName = "BackEnd"
+$FrontEndName = "FrontEnd"
+$DBName = "Comercio"
+$basePath = "$($env:USERPROFILE)\Documents\Repositories"
+
+$EntityClassName = "Factura"
+
+#checks to see if "dotnet-aspnet-codegenerator" is install before tring to do so.
+if (!(dotnet tool list -g | Select-String -Pattern "dotnet-aspnet-codegenerator")) {
+    dotnet tool install --global dotnet-aspnet-codegenerator
+}
+
+#mkdir $basePath\$BackEndName\Controllers -Force
+#cd $basePath\$BackEndName\controllers
+#dotnet new controller -n $EntityClassName -api
+
+dotnet aspnet-codegenerator controller -name $EntityClassName -api -outDir Controllers
+
+
+
+
