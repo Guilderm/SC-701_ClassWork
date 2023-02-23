@@ -31,6 +31,7 @@ cd ..
 dotnet new webapi -n $BackEndName -o $BackEndName --no-https --framework net6.0
 cd $BackEndName
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version *
+dotnet Add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.*
 #dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.*
 dotnet add package Swashbuckle.AspNetCore --version 6.*
 dotnet add package Serilog.aspnetcore --version *
@@ -78,7 +79,7 @@ dotnet build
 Invoke-Item "$basePath\$solutionName\$solutionName.sln"
 #dotnet run --project ./$BackEndName ./$FrontEndName
 
-
+<#
 #once the models are created in the Frontend use the fallowing to create the controlers and views
 
 # sets the names and directory
@@ -97,12 +98,22 @@ if (!(dotnet tool list -g | Select-String -Pattern "dotnet-aspnet-codegenerator"
     dotnet tool install --global dotnet-aspnet-codegenerator
 }
 
-#mkdir $basePath\$BackEndName\Controllers -Force
-#cd $basePath\$BackEndName\controllers
-#dotnet new controller -n $EntityClassName -api
+#creates the backend Controller
+cd "$basePath\$solutionName\$BackEndName"
+dotnet aspnet-codegenerator controller -name $EntityClassName -actions -api -outDir Controllers
 
-dotnet aspnet-codegenerator controller -name $EntityClassName -api -outDir Controllers
+#creates the Frontend Controller
+cd "$basePath\$solutionName\$FrontEndName"
+dotnet aspnet-codegenerator controller -name $EntityClassName -actions -outDir Controllers
 
+#creates the views
+dotnet aspnet-codegenerator view Create Create --model Frontend.Models.FacturaViewModel -outDir Views/Factura
+dotnet aspnet-codegenerator view Edit Edit --model FacturaViewModel -outDir Views/Factura
+dotnet aspnet-codegenerator view Delete Delete --model FacturaViewModel -outDir Views/Factura
+dotnet aspnet-codegenerator view Details Details --model FacturaViewModel -outDir Views/Factura
+dotnet aspnet-codegenerator view List List --model FacturaViewModel -outDir Views/Factura
 
-
-
+#Clean and build the solution
+dotnet clean
+dotnet build
+#>
