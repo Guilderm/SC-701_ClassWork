@@ -79,8 +79,14 @@ dotnet build
 Invoke-Item "$basePath\$solutionName\$solutionName.sln"
 #dotnet run --project ./$BackEndName ./$FrontEndName
 
-<#
+
+
+
+################################################################
+################################################################
 #once the models are created in the Frontend use the fallowing to create the controlers and views
+################################################################
+################################################################
 
 # sets the names and directory
 $solutionName = "MidtermExam"
@@ -92,6 +98,7 @@ $DBName = "Comercio"
 $basePath = "$($env:USERPROFILE)\Documents\Repositories"
 
 $EntityClassName = "Factura"
+$ViewModelName = $EntityClassName + "ViewModel"
 
 #checks to see if "dotnet-aspnet-codegenerator" is install before tring to do so.
 if (!(dotnet tool list -g | Select-String -Pattern "dotnet-aspnet-codegenerator")) {
@@ -107,13 +114,18 @@ cd "$basePath\$solutionName\$FrontEndName"
 dotnet aspnet-codegenerator controller -name $EntityClassName -actions -outDir Controllers
 
 #creates the views
-dotnet aspnet-codegenerator view Create Create --model Frontend.Models.FacturaViewModel -outDir Views/Factura
-dotnet aspnet-codegenerator view Edit Edit --model FacturaViewModel -outDir Views/Factura
-dotnet aspnet-codegenerator view Delete Delete --model FacturaViewModel -outDir Views/Factura
-dotnet aspnet-codegenerator view Details Details --model FacturaViewModel -outDir Views/Factura
-dotnet aspnet-codegenerator view List List --model FacturaViewModel -outDir Views/Factura
+dotnet aspnet-codegenerator view Create Create --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
+dotnet aspnet-codegenerator view Edit Edit --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
+dotnet aspnet-codegenerator view Delete Delete --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
+dotnet aspnet-codegenerator view Details Details --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
+dotnet aspnet-codegenerator view List List --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
 
 #Clean and build the solution
 dotnet clean
 dotnet build
 #>
+
+
+$EntityClassName = "Factura"
+$ViewModelName = $EntityClassName + "ViewModel"
+dotnet aspnet-codegenerator view Create Create --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
