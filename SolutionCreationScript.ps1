@@ -33,6 +33,8 @@ cd $BackEndName
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version *
 dotnet add package Swashbuckle.AspNetCore --version 6.*
 dotnet add package Serilog.aspnetcore --version *
+dotnet add package Serilog.Sinks.Console --version *
+dotnet add package Serilog.Sinks.File --version *
 dotnet add reference ../$DALName/$DALName.csproj
 dotnet add reference ../$EntityName/$EntityName.csproj
 cd ..
@@ -41,8 +43,10 @@ cd ..
 dotnet new mvc -n $FrontEndName -o $FrontEndName --framework net6.0
 cd $FrontEndName
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.*
-dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version *
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.*
 dotnet add package Serilog.aspnetcore --version *
+dotnet add package Serilog.Sinks.Console --version *
+dotnet add package Serilog.Sinks.File --version *
 cd ..
 
 # create the solution file
