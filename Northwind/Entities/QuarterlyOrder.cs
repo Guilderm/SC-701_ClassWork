@@ -1,9 +1,13 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class QuarterlyOrder
+namespace Entities
 {
-	public string? CustomerId { get; set; }
-	public string? CompanyName { get; set; }
-	public string? City { get; set; }
-	public string? Country { get; set; }
+    public partial class QuarterlyOrder
+    {
+        public string? CustomerId { get; set; }
+        public string? CompanyName { get; set; }
+        public string? City { get; set; }
+        public string? Country { get; set; }
+    }
 }

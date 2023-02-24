@@ -1,7 +1,11 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class ProductsAboveAveragePrice
+namespace Entities
 {
-	public string ProductName { get; set; } = null!;
-	public decimal? UnitPrice { get; set; }
+    public partial class ProductsAboveAveragePrice
+    {
+        public string ProductName { get; set; } = null!;
+        public decimal? UnitPrice { get; set; }
+    }
 }

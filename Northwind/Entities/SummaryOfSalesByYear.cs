@@ -1,8 +1,12 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class SummaryOfSalesByYear
+namespace Entities
 {
-	public DateTime? ShippedDate { get; set; }
-	public int OrderId { get; set; }
-	public decimal? Subtotal { get; set; }
+    public partial class SummaryOfSalesByYear
+    {
+        public DateTime? ShippedDate { get; set; }
+        public int OrderId { get; set; }
+        public decimal? Subtotal { get; set; }
+    }
 }

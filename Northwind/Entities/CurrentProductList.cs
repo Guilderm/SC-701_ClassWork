@@ -1,7 +1,11 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class CurrentProductList
+namespace Entities
 {
-	public int ProductId { get; set; }
-	public string ProductName { get; set; } = null!;
+    public partial class CurrentProductList
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; } = null!;
+    }
 }

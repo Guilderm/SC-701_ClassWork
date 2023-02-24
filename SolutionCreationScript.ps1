@@ -1,6 +1,6 @@
 ﻿# sets the names and directory
 $solutionName = "MidtermExam"
-$EntityName = "Entity"
+$EntityName = "Entities"
 $DALName = "DAL"
 $BackEndName = "BackEnd"
 $FrontEndName = "FrontEnd"
