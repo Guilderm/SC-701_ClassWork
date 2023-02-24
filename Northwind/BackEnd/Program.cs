@@ -1,7 +1,7 @@
 using BackEnd.Configurations;
 using DAL.Interfaces;
 using DAL.Repositories;
-using Entity;
+using Entities;
 using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;

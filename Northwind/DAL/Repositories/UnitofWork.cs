@@ -1,5 +1,5 @@
 ﻿using DAL.Interfaces;
-using Entity;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
