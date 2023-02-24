@@ -31,8 +31,8 @@ cd ..
 dotnet new webapi -n $BackEndName -o $BackEndName --no-https --framework net6.0
 cd $BackEndName
 dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version *
-dotnet Add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.*
-#dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.*
+dotnet Add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.* #For some reason it is not getting installed
+#dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson --version 6.* #looks like I do not need this pakage
 dotnet add package Swashbuckle.AspNetCore --version 6.*
 dotnet add package Serilog.aspnetcore --version *
 dotnet add package Serilog.Sinks.Console --version *
@@ -80,31 +80,30 @@ Invoke-Item "$basePath\$solutionName\$solutionName.sln"
 #dotnet run --project ./$BackEndName ./$FrontEndName
 
 
-
-
 ################################################################
 ################################################################
-#once the models are created in the Frontend use the fallowing to create the controlers and views
+##once the models are created in the Frontend				  ##
+##use the fallowing to create the controlers and views		  ##
 ################################################################
 ################################################################
 
 # sets the names and directory
 $solutionName = "MidtermExam"
-$EntityName = "Entity"
-$DALName = "DAL"
 $BackEndName = "BackEnd"
 $FrontEndName = "FrontEnd"
-$DBName = "Comercio"
 $basePath = "$($env:USERPROFILE)\Documents\Repositories"
 
 $EntityClassName = "Factura"
-$ViewModelName = $EntityClassName + "ViewModel"
+$outDir = "Views/" + $EntityClassName
+#$model = "${FrontEndName}.Models.${$EntityClassName}ViewModel" #could not get this working
+$model = "Frontend.Models.FacturaViewModel"
 
 #checks to see if "dotnet-aspnet-codegenerator" is install before tring to do so.
 if (!(dotnet tool list -g | Select-String -Pattern "dotnet-aspnet-codegenerator")) {
-    dotnet tool install --global dotnet-aspnet-codegenerator
+    dotnet tool install --global dotnet-aspnet-codegenerator --version *
 }
 
+<#
 #creates the backend Controller
 cd "$basePath\$solutionName\$BackEndName"
 dotnet aspnet-codegenerator controller -name $EntityClassName -actions -api -outDir Controllers
@@ -113,19 +112,10 @@ dotnet aspnet-codegenerator controller -name $EntityClassName -actions -api -out
 cd "$basePath\$solutionName\$FrontEndName"
 dotnet aspnet-codegenerator controller -name $EntityClassName -actions -outDir Controllers
 
-#creates the views
-dotnet aspnet-codegenerator view Create Create --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
-dotnet aspnet-codegenerator view Edit Edit --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
-dotnet aspnet-codegenerator view Delete Delete --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
-dotnet aspnet-codegenerator view Details Details --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
-dotnet aspnet-codegenerator view List List --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
-
-#Clean and build the solution
-dotnet clean
-dotnet build
+#Create the views
+dotnet aspnet-codegenerator view Create Create --model $model -outDir $outDir
+dotnet aspnet-codegenerator view Edit Edit --model $model -outDir $outDir
+dotnet aspnet-codegenerator view Delete Delete --model $model -outDir $outDir
+dotnet aspnet-codegenerator view Details Details --model $model -outDir $outDir
+dotnet aspnet-codegenerator view Index List --model $model -outDir $outDir
 #>
-
-
-$EntityClassName = "Factura"
-$ViewModelName = $EntityClassName + "ViewModel"
-dotnet aspnet-codegenerator view Create Create --model $FrontEndName.Models.$ViewModelName  -outDir Views/$EntityClassName
