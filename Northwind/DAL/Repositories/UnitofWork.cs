@@ -17,11 +17,13 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         _loggerFactory = loggerFactory;
         _logger = logger;
         _dbContext = dbContext;
+        _logger.LogInformation("Created a new Unit of Work instance");
     }
 
     public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
     {
-        return new GenericRepository<TEntity>(_loggerFactory.CreateLogger<GenericRepository<TEntity>>(), _dbContext);
+        return new GenericRepository<TEntity>(
+            _loggerFactory.CreateLogger<GenericRepository<TEntity>>(), _dbContext);
     }
 
 
@@ -30,7 +32,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         try
         {
             int rowsAffected = _dbContext.SaveChanges();
-            _logger.LogInformation("", $"EF affected {rowsAffected} rows when saving changes.");
+            _logger.LogInformation($"EF affected {rowsAffected} rows when saving changes.");
         }
         catch (DbUpdateException ex)
         {
@@ -55,6 +57,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
             if (disposing)
             {
                 _dbContext.Dispose();
+                _logger.LogInformation("Disposed the Unit of Work instance");
             }
         }
 
