@@ -6,11 +6,13 @@ namespace FrontEnd.Controllers;
 
 public class ShipperController : Controller
 {
+    private readonly ILogger<ShipperController> _logger;
     private readonly ShippersService _shippersService;
 
-    public ShipperController(IConfiguration configuration)
+    public ShipperController(ShippersService shippersService, ILogger<ShipperController> logger)
     {
-        _shippersService = new ShippersService(configuration);
+        _shippersService = shippersService;
+        _logger = logger;
     }
 
     // GET: ShipperController

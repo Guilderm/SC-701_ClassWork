@@ -7,10 +7,12 @@ namespace FrontEnd.Controllers;
 public class CategoryController : Controller
 {
     private readonly CategoryService _categoryService;
+    private readonly ILogger<CategoryController> _logger;
 
-    public CategoryController(IConfiguration configuration)
+    public CategoryController(CategoryService categoryService, ILogger<CategoryController> logger)
     {
-        _categoryService = new CategoryService(configuration);
+        _categoryService = categoryService;
+        _logger = logger;
     }
 
     // GET: CategoryController

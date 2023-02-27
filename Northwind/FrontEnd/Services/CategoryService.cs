@@ -4,8 +4,8 @@ namespace FrontEnd.Services;
 
 public class CategoryService : GenericServices<CategoryViewModel>
 {
-    public CategoryService(IConfiguration configuration) : base(
-        configuration, configuration.GetSection("BackendURLs")["categoryPath"])
+    public CategoryService(IConfiguration configuration, ILogger<CategoryService> logger)
+        : base(configuration.GetSection("BackendURLs")["categoryPath"], logger)
     {
     }
 }

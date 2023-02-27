@@ -1,17 +1,18 @@
 ﻿using Newtonsoft.Json;
-using Serilog;
 
 namespace FrontEnd.Services;
 
 public class GenericServices<TModel> where TModel : class
 {
     private readonly HttpService _httpService;
+    private readonly ILogger _logger;
     private readonly string _resourcePath;
 
-    public GenericServices(IConfiguration configuration, string resourcePath)
+    public GenericServices(string resourcePath, ILogger logger)
     {
-        _httpService = new HttpService(configuration);
-        _resourcePath = resourcePath;
+        _httpService = new HttpService();
+        _resourcePath = resourcePath ?? throw new ArgumentNullException(nameof(resourcePath));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public List<TModel> GetAll()
@@ -24,7 +25,7 @@ public class GenericServices<TModel> where TModel : class
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error getting all {Model}s from {_resourcePath}", typeof(TModel), _resourcePath);
+            _logger.LogError(ex, "Error getting all {Model}s from {_resourcePath}", typeof(TModel), _resourcePath);
             throw;
         }
     }
@@ -39,7 +40,8 @@ public class GenericServices<TModel> where TModel : class
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error getting {Model} with id {id} from {_resourcePath}", typeof(TModel), id, _resourcePath);
+            _logger.LogError(ex, "Error getting {Model} with id {id} from {_resourcePath}", typeof(TModel), id,
+                _resourcePath);
             throw;
         }
     }
@@ -54,7 +56,7 @@ public class GenericServices<TModel> where TModel : class
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error creating {Model} on {_resourcePath}", typeof(TModel), _resourcePath);
+            _logger.LogError(ex, "Error creating {Model} on {_resourcePath}", typeof(TModel), _resourcePath);
             throw;
         }
     }
@@ -69,7 +71,7 @@ public class GenericServices<TModel> where TModel : class
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error updating {Model} on {_resourcePath}", typeof(TModel), _resourcePath);
+            _logger.LogError(ex, "Error updating {Model} on {_resourcePath}", typeof(TModel), _resourcePath);
             throw;
         }
     }
@@ -84,7 +86,7 @@ public class GenericServices<TModel> where TModel : class
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error deleting {Model} with id {id} from {_resourcePath}", typeof(TModel), id,
+            _logger.LogError(ex, "Error deleting {Model} with id {id} from {_resourcePath}", typeof(TModel), id,
                 _resourcePath);
             throw;
         }

@@ -1,13 +1,13 @@
-﻿namespace FrontEnd.Services;
+﻿using Newtonsoft.Json.Linq;
+
+namespace FrontEnd.Services;
 
 public class HttpService
 {
-    private readonly HttpClient _client = new();
-
-    public HttpService(IConfiguration configuration)
+    private readonly HttpClient _client = new()
     {
-        _client.BaseAddress = new Uri(configuration.GetSection("BackendURLs")["baseUrl"]);
-    }
+        BaseAddress = new Uri(JObject.Parse(File.ReadAllText("appsettings.json"))["BackendURLs"]["baseUrl"].ToString())
+    };
 
     public HttpResponseMessage GetResponse(string url)
     {

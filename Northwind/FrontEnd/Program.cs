@@ -1,3 +1,4 @@
+using FrontEnd.Services;
 using Serilog;
 using Serilog.Core;
 
@@ -13,6 +14,10 @@ Logger logger = new LoggerConfiguration()
     .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+
+builder.Services.AddTransient(typeof(GenericServices<>));
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<ShippersService>();
 
 WebApplication app = builder.Build();
 
