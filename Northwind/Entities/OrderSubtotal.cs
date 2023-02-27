@@ -1,7 +1,11 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class OrderSubtotal
+namespace Entities
 {
-	public int OrderId { get; set; }
-	public decimal? Subtotal { get; set; }
+    public partial class OrderSubtotal
+    {
+        public int OrderId { get; set; }
+        public decimal? Subtotal { get; set; }
+    }
 }

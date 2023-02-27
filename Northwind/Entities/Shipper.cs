@@ -1,15 +1,19 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class Shipper
+namespace Entities
 {
-	public Shipper()
-	{
-		Orders = new HashSet<Order>();
-	}
+    public partial class Shipper
+    {
+        public Shipper()
+        {
+            Orders = new HashSet<Order>();
+        }
 
-	public int ShipperId { get; set; }
-	public string CompanyName { get; set; } = null!;
-	public string? Phone { get; set; }
+        public int ShipperId { get; set; }
+        public string CompanyName { get; set; } = null!;
+        public string? Phone { get; set; }
 
-	public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+    }
 }

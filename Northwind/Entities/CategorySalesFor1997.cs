@@ -1,7 +1,11 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class CategorySalesFor1997
+namespace Entities
 {
-	public string CategoryName { get; set; } = null!;
-	public decimal? CategorySales { get; set; }
+    public partial class CategorySalesFor1997
+    {
+        public string CategoryName { get; set; } = null!;
+        public decimal? CategorySales { get; set; }
+    }
 }

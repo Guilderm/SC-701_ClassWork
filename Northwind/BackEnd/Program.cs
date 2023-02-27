@@ -1,6 +1,7 @@
 using BackEnd.Configurations;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Entities;
 using Newtonsoft.Json;
 using Serilog;
 using Serilog.Core;
@@ -18,6 +19,7 @@ Logger? logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
+builder.Services.AddDbContext<NorthwindContext>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers().AddNewtonsoftJson(op
