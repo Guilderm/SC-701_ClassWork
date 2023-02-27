@@ -15,7 +15,7 @@ Logger logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddTransient(typeof(GenericServices<>));
+
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<ShippersService>();
 
