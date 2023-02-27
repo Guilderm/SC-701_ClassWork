@@ -12,11 +12,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     private readonly DbSet<TEntity> _dbSet;
     private readonly ILogger<GenericRepository<TEntity>> _logger;
 
-    public GenericRepository(DbContext dbContex)
+    public GenericRepository(ILogger<GenericRepository<TEntity>> logger, DbContext dbContex)
     {
         _DbContext = dbContex;
         _dbSet = _DbContext.Set<TEntity>();
-        _logger = new LoggerFactory().CreateLogger<GenericRepository<TEntity>>();
+        _logger = logger;
     }
 
     public void Insert(TEntity entity)
@@ -111,6 +111,3 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         }
     }
 }
-
-// Path: DAL\Interfaces\IGenericRepository.cs
-//
