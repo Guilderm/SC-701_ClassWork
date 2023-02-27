@@ -2,12 +2,12 @@
 
 namespace FrontEnd.Services;
 
-public class GenericService<TModel> where TModel : class
+public class GenericServices<TModel> where TModel : class
 {
     private readonly HttpService _httpService;
     private readonly string _resourcePath;
 
-    public GenericService(IConfiguration configuration, string resourcePath)
+    public GenericServices(IConfiguration configuration, string resourcePath)
     {
         _httpService = new HttpService(configuration);
         _resourcePath = resourcePath;
@@ -27,16 +27,16 @@ public class GenericService<TModel> where TModel : class
         return JsonConvert.DeserializeObject<TModel>(content);
     }
 
-    public TModel Create(TModel model)
+    public TModel Create(TModel obj)
     {
-        HttpResponseMessage responseMessage = _httpService.PostResponse(_resourcePath, model);
+        HttpResponseMessage responseMessage = _httpService.PostResponse(_resourcePath, obj);
         string content = responseMessage.Content.ReadAsStringAsync().Result;
         return JsonConvert.DeserializeObject<TModel>(content);
     }
 
-    public TModel Edit(TModel model)
+    public TModel Edit(TModel obj)
     {
-        HttpResponseMessage responseMessage = _httpService.PutResponse(_resourcePath, model);
+        HttpResponseMessage responseMessage = _httpService.PutResponse(_resourcePath, obj);
         string content = responseMessage.Content.ReadAsStringAsync().Result;
         return JsonConvert.DeserializeObject<TModel>(content);
     }
