@@ -6,23 +6,23 @@ namespace FrontEnd.Controllers;
 
 public class ShipperController : Controller
 {
-    private readonly ShippersServices _ShippersServices;
+    private readonly ShippersService _shippersService;
 
     public ShipperController(IConfiguration configuration)
     {
-        _ShippersServices = new ShippersServices(configuration);
+        _shippersService = new ShippersService(configuration);
     }
 
     // GET: ShipperController
     public ActionResult Index()
     {
-        return View(_ShippersServices.GetAll());
+        return View(_shippersService.GetAll());
     }
 
     // GET: ShipperController/Details/5
     public ActionResult Details(int id)
     {
-        return View(_ShippersServices.Get(id));
+        return View(_shippersService.Get(id));
     }
 
     // GET: ShipperController/Create
@@ -38,7 +38,7 @@ public class ShipperController : Controller
     {
         try
         {
-            return RedirectToAction("Details", new { id = _ShippersServices.Create(Shipper).ShipperId });
+            return RedirectToAction("Details", new { id = _shippersService.Create(Shipper).ShipperId });
         }
         catch
         {
@@ -49,7 +49,7 @@ public class ShipperController : Controller
     // GET: ShipperController/Edit/5
     public ActionResult Edit(int id)
     {
-        return View(_ShippersServices.Get(id));
+        return View(_shippersService.Get(id));
     }
 
     // POST: ShipperController/Edit/5
@@ -59,7 +59,7 @@ public class ShipperController : Controller
     {
         try
         {
-            _ShippersServices.Edit(Shipper);
+            _shippersService.Edit(Shipper);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -71,7 +71,7 @@ public class ShipperController : Controller
     // GET: ShipperController/Delete/5
     public ActionResult Delete(int id)
     {
-        return View(_ShippersServices.Get(id));
+        return View(_shippersService.Get(id));
     }
 
     // POST: ShipperController/Delete/5
@@ -81,7 +81,7 @@ public class ShipperController : Controller
     {
         try
         {
-            _ShippersServices.Delete(Shipper.ShipperId);
+            _shippersService.Delete(Shipper.ShipperId);
 
             return RedirectToAction(nameof(Index));
         }
